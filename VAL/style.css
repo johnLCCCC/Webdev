@@ -1,212 +1,261 @@
-/* Index-specific styles were moved to `index.css` — link `index.css` in Index.html  */
+/* ============================================================
+   GLOBAL STYLESHEET — canonical source of truth for the site
+   (previously split across style.css + index.css + home.css)
+   ============================================================ */
 
-/* === Global theme variables (crimson + matte black) === */
-:root{
-  --primary: #dc143c;        /* primary accent color (crimson) */
-  --matte-black: #0f0f0f;    /* base background for the app */
-  --bg: var(--matte-black);  /* page background */
-  --text: #eaeaea;           /* default text color on dark bg */
-  --card-bg: #121212;        /* card background */
-  --muted: #9b9b9b;          /* subdued / secondary text */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+/* ---- Theme variables ---- */
+:root {
+  --primary:       #dc143c;   /* crimson accent          */
+  --primary-dark:  #b3122b;
+  --matte-black:   #0f0f0f;
+  --bg:            var(--matte-black);
+  --text:          #eaeaea;
+  --card-bg:       #121212;
+  --muted:         #9b9b9b;
+  --nav-height:    50px;
+  --agents-gap:    16px;
 }
-/* Original navigation styles (existing site rules) */
-ul {
-  list-style-type: none;
+
+/* ---- Reset / base ---- */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
   margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: var(--matte-black);
-  position: relative;
-}
-
-ul li {
-  float: left;
-}
-
-ul li.right {
-  float: right;
-}
-
-ul li a {
-  display: block;
+  font-family: 'Poppins', sans-serif;
+  background: var(--bg);
   color: var(--text);
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 16px;
+  line-height: 1.5;
 }
+p { color: var(--muted); }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--text); text-decoration: none; }
+ul { list-style: none; margin: 0; padding: 0; }
 
-#folderBtn span {
-  margin-right: 6px;
-}
-
-ul li a:hover {
-  background-color: var(--card-bg);
-  color: var(--primary);
-  cursor: pointer;
-}
-
-/* `#arrowMenuBtn span` moved to index.css to make it index-only */
-
-#bg {
-  background-color: var(--bg);
-}
-
-.Page {
-    
-    text-align: center;
-    
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-}
-
-/* === Top navigation (site-wide layout + colors) === */
-.top-nav{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding: 12px 16px;
+/* ---- Navigation ---- */
+.top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: var(--nav-height);
   background: var(--matte-black);
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 900;
 }
-.top-nav .logo{
+.top-nav .logo {
+  font-size: 20px;
+  font-weight: 700;
   color: var(--primary);
-  font-weight:700;
-  font-size:20px;
+  cursor: default;
 }
-.nav-links{
-  list-style:none;
-  display:flex;
-  gap: 16px;
-  margin:0;
-  padding:0;
+.nav-links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
 }
-.nav-links a{
+.nav-links a {
   color: var(--text);
   padding: 10px 8px;
-  text-decoration:none;
+  font-weight: 500;
+  transition: color 200ms ease;
 }
-.nav-underline{
-  position:absolute;
-  height:3px;
-  background: var(--primary);
-  bottom: 8px;
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--primary);
+}
+.nav-underline {
+  position: absolute;
+  bottom: 0;
   left: 0;
   width: 0;
+  height: 2px;
+  background: var(--primary);
   transition: left 200ms ease, width 200ms ease;
   opacity: 0;
 }
 
-.nav-links a.active{ color: var(--primary); font-weight:700; }
-
-/* Hide nav links on small screens (use slider) */
-@media (max-width: 900px) {
-  .nav-links{ display:none; }
-  .top-nav .hamburger-icon{ display:inline-flex; }
+/* Burger icon */
+.hamburger-icon {
+  display: none;              /* hidden on large screens, shown via media query */
+  flex-direction: column;
+  justify-content: space-between;
+  height: 20px;
+  width: 28px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.hamburger-icon span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--text);
+  transition: transform 300ms ease, opacity 300ms ease;
+}
+.hamburger-icon.open span:first-child {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+.hamburger-icon.open span:nth-child(2) { opacity: 0; }
+.hamburger-icon.open span:last-child {
+  transform: rotate(-45deg) translate(6px, -6px);
 }
 
-/* Show top-nav burger on all screen sizes by default (we keep nav-links visible on large screens) */
-.top-nav .hamburger-icon{ display:inline-flex; }
-
-.menu {
-    display: flex;
-    justify-content: center;
-    gap: 100px;
-    margin-top: 40px;
-}
-
-.logout {
-    padding:15px;
-}
-
-#Login {
-  background-color: var(--card-bg);
-    padding: 25px;
-    width: 300px;
-    border-radius: 20px;
-    color: var(--text);
-}
-
-.Loginbody {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;  
-    align-items: center;     
-  background: var(--bg);     
-}
-
-/* === Slider menu container (off-canvas navigation) === */
+/* Slider menu (off-canvas) */
 #sliderMenu {
   display: none;
   position: fixed;
-  top: 8px; /* margin top for vertical offset */
-  right: 0;
-  width: 260px; /* slightly wider for nicer layout */
-  height: calc(100% - 20px);
+  inset: var(--nav-height) 0 auto auto;
+  width: 260px;
+  height: calc(100vh - var(--nav-height));
   background: var(--matte-black);
-  box-shadow: -2px 0 5px rgba(0,0,0,0.2);
+  box-shadow: -2px 0 10px rgba(0,0,0,.4);
   z-index: 1000;
-  text-align: center; /* center links inside */
-  /* center content when open (set via #sliderMenu.open) */
-  padding: 12px 16px;
-  overflow-y: auto; /* keep usable on small screens */
+  padding: 40px 16px 16px;
+  overflow-y: auto;
 }
-
-/* === Slider menu inner content (vertical links stack) === */
+#sliderMenu.open { display: flex; flex-direction: column; }
 .slider-content {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 0;
+  align-items: stretch;
+}
+.slider-content a {
+  color: var(--text);
+  padding: 12px;
+  border-radius: 6px;
+  transition: background 200ms ease;
+}
+.slider-content a:hover { background: var(--card-bg); color: var(--primary); }
+
+@media (max-width: 900px) {
+  .nav-links       { display: none; }
+  .top-nav .hamburger-icon { display: flex; }
+}
+
+/* ---- Welcome bar (logged-in user banner) ---- */
+.welcomeUser {
+  display: none;
+  padding: 8px 16px;
+  background: var(--card-bg);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 14px;
+}
+.logout-link {
+  color: var(--primary);
+  font-weight: 600;
+  margin-left: 10px;
+}
+
+/* ---- Auth prompt (shown when not logged in) ---- */
+.auth-prompt {
+  display: none;
+  padding: 16px 20px;
+  text-align: center;
+  background: var(--card-bg);
+  border-radius: 10px;
+  margin: 20px 16px;
+  color: var(--text);
+}
+
+/* ---- Section layout helpers ---- */
+.section-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  padding: 48px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ---- Scroll-reveal animation (driven by scroll-anim.js adding .show) ---- */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms ease, transform 600ms ease;
+}
+.scroll-reveal.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Cards (generic) ---- */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
   width: 100%;
+}
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.05);
+  padding: 16px;
+  display: flex;
+  gap: 12px;
   align-items: center;
+  transition: transform 220ms ease, box-shadow 220ms ease;
 }
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.4);
+}
+.card .card-thumb img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.card .card-body h3 { margin: 0 0 6px; font-size: 16px; }
+.card .card-body p  { margin: 0; font-size: 13px; color: var(--muted); }
 
-/* === Slider menu link appearance === */
-#sliderMenu .slider-content a {
-  display: block;
+/* ---- Typography ---- */
+.title       { font-size: 36px; text-align: center; margin-bottom: 8px; }
+.section__text__p2 { text-align: center; color: var(--muted); margin-bottom: 24px; }
+
+/* ---- Buttons ---- */
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  font-weight: 600;
+  border-radius: 30px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 250ms ease, transform 150ms ease;
+}
+.btn:hover  { background: var(--primary-dark); transform: scale(1.04); }
+.btn-dark   { background: #000; }
+.btn-dark:hover { background: #1a1a1a; }
+.btn-color-2 {
+  background: transparent;
+  border: 2px solid var(--primary);
   color: var(--text);
-  padding: 12px 8px;
-  width: 100%;
-  box-sizing: border-box;
-  text-decoration: none;
+}
+.btn-color-2:hover { background: var(--primary); color: #fff; }
+
+/* ---- Footer ---- */
+footer {
+  background: var(--matte-black);
+  border-top: 1px solid rgba(255,255,255,0.05);
+  color: var(--muted);
+  padding: 32px 16px;
+  text-align: center;
+  margin-top: 40px;
 }
 
+/* ---- Scrollbar hide for horizontal rows ---- */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
 
-/* === Generic "login required" prompt style (used across pages) === */
-.auth-prompt{
-  display:none;
-  padding:20px;
-  text-align:center;
-  background: var(--card-bg);
-  color: var(--text);
-  margin-top:12px;
-}
-
-/* Keep weapons-specific ID for backwards compatibility */
-#weaponsLoginPrompt{
-  display:none;
-  padding:20px;
-  text-align:center;
-  background: var(--card-bg);
-  color: var(--text);
-  margin-top:12px;
-}
-
-/* === Login / Sign-up container panel === */
-#Login {
-  background-color: var(--card-bg);
-  padding: 25px;
-  width: 300px;
-  border-radius: 20px;
-  color: var(--text);
-}
-
+/* ---- Auth / Login / SignUp pages ---- */
 .Loginbody {
   margin: 0;
   height: 100vh;
@@ -215,113 +264,79 @@ ul li a:hover {
   align-items: center;
   background: var(--bg);
 }
-
-/* === Auth back-link (Login / Sign Up pages) === */
-.auth-back-link{
-  position:absolute;
-  right:30px;
-  top:30px;
-  text-decoration:none;
-  color:var(--text);
-  font-size:18px;
-}
-
-/* === Shared auth form layout (Login / Sign Up) === */
-.auth-form{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  width:100%;
-}
-
-/* === Base auth input fields === */
-.auth-input{
-  width:240px;
-  height:38px;
-  margin-bottom:16px;
-  font-size:16px;
-  border-radius:6px;
-  border:1px solid rgba(255,255,255,0.08);
-  padding:0 12px;
-  box-sizing:border-box;
-}
-
-/* === Auth password wrapper (for eye toggle button) === */
-.auth-password-wrapper{
-  position:relative;
-  display:block;
-  width:240px;
-  margin-bottom:2px;
-}
-
-/* === Extra padding on inputs that have a toggle eye button === */
-.auth-input--with-toggle{
-  padding-right:40px;
-}
-
-/* === Password visibility toggle button (eye icon button) === */
-.auth-toggle-btn{
-  position:absolute;
-  right:5px;
-  top:50%;
-  transform:translateY(-50%);
-  background:none;
-  border:none;
-  cursor:pointer;
-}
-
-/* === Eye icon size in toggle button === */
-.auth-eye-icon{
-  font-size:22px;
-}
-
-/* === Primary auth action button (Login / Sign Up submit) === */
-.auth-submit-btn{
-  width:240px;
-  height:38px;
-  font-size:16px;
-  border-radius:6px;
-  background:var(--primary);
-  color:#fff;
-  border:none;
-  cursor:pointer;
-}
-
-/* Base navbar layout for all pages */
-nav, .nav-links {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: var(--nav-height);
-}
-.nav-links a {
+#Login {
+  background-color: var(--card-bg);
+  padding: 32px 28px;
+  width: 340px;
+  border-radius: 16px;
   color: var(--text);
+  position: relative;
+}
+.auth-back-link {
+  position: absolute;
+  right: 24px;
+  top: -36px;
   text-decoration: none;
-  padding: 10px 16px;
-}
-.nav-links a:hover {
-  color: var(--primary);
-}
-
-.btn {
-  font-weight: 600;
-  padding: 12px 24px;
-  border-radius: 32px;
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-.btn:hover {
-  background: #ff1a3c;
-}
-
-footer {
-  background: var(--matte-black);
   color: var(--muted);
-  padding: 40px 16px;
-  text-align: center;
+  font-size: 14px;
 }
+.auth-back-link:hover { color: var(--primary); }
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.auth-input {
+  width: 240px;
+  height: 40px;
+  margin-bottom: 12px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  padding: 0 12px;
+  color: var(--text);
+  outline: none;
+}
+.auth-input:focus { border-color: var(--primary); }
+.auth-password-wrapper {
+  position: relative;
+  display: block;
+  width: 240px;
+  margin-bottom: 2px;
+}
+.auth-input--with-toggle { padding-right: 42px; }
+.auth-toggle-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+}
+.auth-eye-icon { font-size: 20px; opacity: 0.7; }
 
+/* ---- Agent tier legend pills ---- */
+.tier {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 12px;
+}
+.tier.t0   { background: var(--primary); color: #fff; }
+.tier.t1   { background: #ff6b6b; color: #fff; }
+.tier.t2   { background: #6c757d; color: #fff; }
+.tier.t3   { background: #495057; color: #fff; }
+.tier-text  { font-size: 11px; color: var(--muted); margin-left: 4px; }
 
+/* Fix for tier-row gradient line (needs position relative on parent) */
+.tier-row { position: relative; }
+
+/* ---- Image loading optimization ---- */
+img[loading="lazy"] {
+  /* native lazy-load — browser handles it */
+}
