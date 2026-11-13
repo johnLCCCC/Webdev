@@ -283,6 +283,28 @@ const agentsData = {
              " [E] Cove(Signature): Deploys a shieldable smoke sphere. The Shield can be destroyed.",
              " [X] Reckoning(Ultimate): Launches a wave that advances, causing Nearsight and Slow to enemies it hits."],
     img: "agents photo/harbor.webp"
+  },
+  "agent-hush": {
+    name: "Hush",
+    role: "Duelist",
+    passive: "Telekinesis (Passive): Grab weapons, the Spike (30s cooldown), and switches from far away.",
+    skills: ["  [C] Flow: Place an anchor point and dash toward it, briefly hovering first if you are airborne.",
+              " [Q] Flashbulb :  Throw a steerable flash orb that blinds enemies after a short delay or on impact.",
+              " [E] Displacement : Throw a steerable gravity orb that pulls enemies inward and concusses them if they hit a wall or each other. Resets every 2 kills.",
+              " [X] Suspension : • Fire a steerable orb that explodes on impact, lifting nearby players into the air for 4 seconds and disabling enemy weapons and abilities."
+            ],
+    img: "agents photo/hush.webp"
+  },
+  "agent-miks": {
+    name: "Miks",
+    role: "Controller",
+    passive: "Passive: None (Miks does not have a passive ability in-game).",
+    skills: ["  [C] M-pulse: Toggle between Concuss and Heal modes, then throw a device that pulses sound waves to stun enemies or heal allies.",
+              " [Q] Harmonize : Give a Combat Stim (speed and fire-rate boost) to yourself and a targeted ally that refreshes on kills, or cast it on yourself only.",
+              " [E] Waveform : Open a tactical map to place and deploy hollow sound-wave smokes.",
+              " [X] Bassquake  : • Unleash a massive forward shockwave that knocks back, slows, and deafens everyone hit."
+            ],
+    img: "agents photo/miks.webp"
   }
 };
 

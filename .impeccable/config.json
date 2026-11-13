@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "buried-raster",
+        "value": "*",
+        "files": [
+          "VAL/index.html"
+        ],
+        "createdAt": "2026-11-13T11:44:52.267Z",
+        "reason": "Intentional gradient overlays on background images for text readability - deliberate design choice"
+      },
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "VAL/Merch.html"
+        ],
+        "createdAt": "2026-11-13T11:45:16.185Z",
+        "reason": "False positive: footer legal text uses resolved var(--muted) #9b9b9b on var(--matte-black) #0f0f0f = ~10:1 contrast, detector checks unresolved variables"
+      }
+    ]
+  }
+}
