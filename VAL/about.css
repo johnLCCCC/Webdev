@@ -5,7 +5,7 @@
   --bg: var(--matte-black);
   --text: #eaeaea;
   --card-bg: #121212;
-  --muted: #9b9b9b;
+  --muted: #b8b8b8;   /* lightened for WCAG AA contrast on dark bg */
   /* Slider nav offset from edges */
   --slider-nav-offset: 12px; /* increase this to add more gap */
 }
