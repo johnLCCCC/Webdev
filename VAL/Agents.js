@@ -359,11 +359,19 @@ function typewriterEffect(element, text, speed = 18) {
 // Staggered skill animation (JS-driven for reliability)
 function animateSkills() {
   const items = modalSkills.querySelectorAll("li");
-  items.forEach((li, index) => {
-    // Use setTimeout for stagger
-    setTimeout(() => {
-      li.classList.add("visible");
-    }, index * 80); // 80ms stagger between each skill
+  // Force reflow to ensure initial CSS state is applied before adding .visible
+  void modalSkills.offsetWidth;
+
+  // Double requestAnimationFrame to ensure initial state is painted
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      items.forEach((li, index) => {
+        // Use setTimeout for stagger
+        setTimeout(() => {
+          li.classList.add("visible");
+        }, index * 80 + 10); // 80ms stagger + 10ms initial delay
+      });
+    });
   });
 }
 
@@ -461,7 +469,12 @@ function openModal(agentId) {
       // 1. Typewriter for passive
       typewriterWithSound(modalPassive, passiveText, 15).then(() => {
         // 2. Staggered skills after passive completes
-        setTimeout(animateSkills, 100);
+        // Give a small extra delay to ensure passive animation is fully done
+        setTimeout(() => {
+          requestAnimationFrame(() => {
+            animateSkills();
+          });
+        }, 200);
       });
     }, 150);
   });
