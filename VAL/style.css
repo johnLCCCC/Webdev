@@ -74,9 +74,10 @@ ul { list-style: none; margin: 0; padding: 0; }
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--primary-text);
-  cursor: default;
+  cursor: pointer;
   position: relative;
   padding-left: 8px;
+  text-decoration: none;
 }
 
 .top-nav .logo::before {
