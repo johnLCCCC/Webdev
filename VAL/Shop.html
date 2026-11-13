@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop — Valorant</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="shop.css">
+  <link rel="icon" type="image/png" href="dum.png">
+</head>
+<body>
+
+<nav class="top-nav" role="navigation" aria-label="Main navigation">
+  <div class="logo">VALORANT</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="Agents.html">Agents</a></li>
+    <li><a href="Shop.html" class="active">Shop</a></li>
+    <li><a href="About.html">About Us</a></li>
+  </ul>
+  <div class="nav-underline" aria-hidden="true"></div>
+  <a href="#" id="arrowMenuBtn" class="hamburger-icon" aria-controls="sliderMenu" aria-expanded="false" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </a>
+</nav>
+
+<div id="sliderMenu" role="dialog" aria-modal="true" aria-hidden="true">
+  <a href="#" id="closeSlider" class="hamburger-icon" aria-label="Close menu">
+    <span></span><span></span><span></span>
+  </a>
+  <div class="slider-content">
+    <a href="Shop.html">Shop</a>
+    <a href="About.html">About Us</a>
+  </div>
+</div>
+
+<script src="nav.js"></script>
+
+<main>
+  <!-- Shop Header -->
+  <header class="shop-header scroll-reveal">
+    <h1>Shop</h1>
+    <p>Merchandise & Valorant Points — grab limited items below.</p>
+  </header>
+
+  <!-- Merchandise Section -->
+  <section class="products-section scroll-reveal">
+    <h2 class="section-subtitle">Merchandise</h2>
+    <div class="products-grid no-scrollbar">
+      <article class="product-card" data-id="sticker-pack">
+        <img src="merch/sticker.jpg" alt="Sticker Pack" loading="lazy">
+        <h3>Sticker Pack</h3>
+        <p class="price">₱49.99</p>
+        <p class="desc">High-quality stickers with unique designs.</p>
+        <div class="actions">
+          <button class="add-btn">Add to cart</button>
+          <button class="buy-btn">Buy now</button>
+        </div>
+      </article>
+
+      <article class="product-card" data-id="plushie">
+        <img src="merch/plushie.webp" alt="Agent Plushie" loading="lazy">
+        <h3>Plushie</h3>
+        <p class="price">₱119.25</p>
+        <p class="desc">Soft plushie — collector-friendly.</p>
+        <div class="actions">
+          <button class="add-btn">Add to cart</button>
+          <button class="buy-btn">Buy now</button>
+        </div>
+      </article>
+
+      <article class="product-card" data-id="keychain">
+        <img src="merch/keychain.webp" alt="Keychain" loading="lazy">
+        <h3>Keychain</h3>
+        <p class="price">₱99.99</p>
+        <p class="desc">Durable keychain with Valorant design.</p>
+        <div class="actions">
+          <button class="add-btn">Add to cart</button>
+          <button class="buy-btn">Buy now</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- VP Bundles Section -->
+  <section class="vp-section scroll-reveal">
+    <h2 class="section-subtitle">Valorant Points (VP)</h2>
+    <p class="section__text__p2" style="text-align:center; max-width:600px; margin:0 auto 1.5rem;">Purchase VP to unlock skins, battle passes, and more in-game. Official Philippines pricing.</p>
+    <div class="disclaimer-banner" role="alert" style="max-width:700px; margin:0 auto 1.5rem;">
+      <strong>⚠️ Educational Simulator Only</strong> — This demonstrates a VP purchase flow for learning purposes.
+      No real VP is granted. Purchase VP only through the official Valorant client.
+    </div>
+    <div id="vp-bundle-grid" class="vp-bundle-grid" role="list" aria-label="VP Bundles"></div>
+  </section>
+
+</main>
+
+<!-- Cart Modal (for merch) -->
+<div id="cartModal" class="cart-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Shopping cart">
+  <div class="cart-panel">
+    <button id="closeCart" class="close-cart" aria-label="Close cart">&times;</button>
+    <h3>Your Cart</h3>
+    <ul id="cartItems" class="cart-items"></ul>
+    <div class="cart-footer">
+      <div class="cart-total">Total: ₱<span id="cartTotal">0.00</span></div>
+      <button id="checkoutBtn" class="checkout">Checkout</button>
+    </div>
+  </div>
+</div>
+
+<!-- View/Reset Cart Buttons -->
+<div class="cart-actions" id="cartActions" style="display: none;">
+  <button id="viewCartBtn" class="view-cart">View Cart</button>
+  <button id="resetCartBtn" class="reset-cart">Clear Cart</button>
+</div>
+
+<!-- VP Purchase Modal (simulated payment flow) -->
+<div id="vpPurchaseModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="vp-purchase-title" hidden style="display: none;">
+  <div class="modal-content vp-purchase-modal">
+    <button class="modal-close" aria-label="Close">&times;</button>
+
+    <!-- Step 1: Bundle Confirmation -->
+    <div id="vp-step-bundle" class="vp-step">
+      <div class="vp-bundle-summary">
+        <h2 id="vp-purchase-title">Confirm Purchase</h2>
+        <div class="selected-bundle-display">
+          <div class="bundle-icon">💎</div>
+          <div class="bundle-details">
+            <h3 id="vp-bundle-name"></h3>
+            <p id="vp-bundle-vp" class="bundle-vp"></p>
+            <p id="vp-bundle-price" class="bundle-price"></p>
+          </div>
+        </div>
+      </div>
+      <div class="vp-step-actions">
+        <button class="btn btn-secondary" id="vp-cancel-btn">Cancel</button>
+        <button class="btn btn-primary" id="vp-continue-btn">Continue to Payment</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Payment Method -->
+    <div id="vp-step-payment" class="vp-step" hidden>
+      <h2>Payment Method</h2>
+      <p class="payment-hint">Select a payment method to continue (simulated)</p>
+      <div class="payment-methods" role="radiogroup" aria-label="Payment methods">
+        <label class="payment-method" tabindex="0" role="radio" aria-checked="true" data-method="gcash">
+          <div class="method-icon">📱</div>
+          <div class="method-info">
+            <strong>GCash</strong>
+            <span>Pay with GCash balance</span>
+          </div>
+          <span class="method-radio" aria-hidden="true"></span>
+        </label>
+        <label class="payment-method" tabindex="0" role="radio" aria-checked="false" data-method="paymaya">
+          <div class="method-icon">💜</div>
+          <div class="method-info">
+            <strong>Maya (PayMaya)</strong>
+            <span>Pay with Maya wallet</span>
+          </div>
+          <span class="method-radio" aria-hidden="true"></span>
+        </label>
+        <label class="payment-method" tabindex="0" role="radio" aria-checked="false" data-method="card">
+          <div class="method-icon">💳</div>
+          <div class="method-info">
+            <strong>Credit/Debit Card</strong>
+            <span>Visa, Mastercard, JCB</span>
+          </div>
+          <span class="method-radio" aria-hidden="true"></span>
+        </label>
+        <label class="payment-method" tabindex="0" role="radio" aria-checked="false" data-method="cod">
+          <div class="method-icon">🏪</div>
+          <div class="method-info">
+            <strong>Over-the-Counter</strong>
+            <span>7-Eleven, Cebuana, M Lhuillier</span>
+          </div>
+          <span class="method-radio" aria-hidden="true"></span>
+        </label>
+      </div>
+      <div class="vp-step-actions">
+        <button class="btn btn-secondary" id="vp-back-btn">Back</button>
+        <button class="btn btn-primary" id="vp-pay-btn">Pay Now</button>
+      </div>
+    </div>
+
+    <!-- Step 3: Processing -->
+    <div id="vp-step-processing" class="vp-step" hidden>
+      <div class="processing-animation">
+        <div class="spinner"></div>
+        <p id="processing-text">Processing payment...</p>
+      </div>
+    </div>
+
+    <!-- Step 4: Success Receipt -->
+    <div id="vp-step-success" class="vp-step" hidden>
+      <div class="success-icon">✅</div>
+      <h2>Purchase Successful!</h2>
+      <p class="success-note">🎓 <strong>Simulation Only</strong> — No real transaction occurred</p>
+      <div class="receipt-preview">
+        <div class="receipt-row"><span>Transaction ID</span><strong id="vp-receipt-id"></strong></div>
+        <div class="receipt-row"><span>Bundle</span><strong id="vp-receipt-bundle"></strong></div>
+        <div class="receipt-row"><span>VP Received</span><strong id="vp-receipt-vp"></strong></div>
+        <div class="receipt-row"><span>Amount Paid</span><strong id="vp-receipt-price"></strong></div>
+        <div class="receipt-row"><span>Payment Method</span><strong id="vp-receipt-method"></strong></div>
+        <div class="receipt-row"><span>Date</span><strong id="vp-receipt-date"></strong></div>
+      </div>
+      <div class="vp-step-actions">
+        <button class="btn btn-primary" id="vp-download-receipt">Download Receipt</button>
+        <button class="btn btn-secondary" id="vp-done-btn">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="shop.js"></script>
+<script src="scroll-anim.js"></script>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <p class="copyright">&copy; 2026 VAL — BSIT Students Project</p>
+    <p class="disclaimer">
+      This is a student project for educational purposes only.
+      <br>
+      <strong>Disclaimer:</strong> VALORANT is a trademark of Riot Games, Inc.
+      This website is not affiliated with, endorsed by, sponsored by, or approved by Riot Games, Inc.
+      All game content, characters, images, and trademarks are property of their respective owners.
+      Used under Riot Games' <a href="https://www.riotgames.com/en/legal" target="_blank" rel="noopener">Legal Jibber Jabber</a> policy.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

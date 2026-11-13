@@ -1,6 +1,7 @@
 /* Theme variables (fallback) */
 :root{
   --primary: #dc143c;
+  --primary-text: #ff6b6b;   /* lighter crimson for text on dark bg (WCAG AA) */
   --matte-black: #0f0f0f;
   --bg: var(--matte-black);
   --text: #eaeaea;
@@ -148,7 +149,7 @@ main {
   transform: translateY(-50%);
   z-index: 999;
   background: rgba(0,0,0,0.5);
-  color: var(--text);
+  color: var(--primary-text);
   border: none;
   font-size: 32px;
   padding: 8px 12px;

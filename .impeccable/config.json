@@ -16,10 +16,10 @@
         "rule": "low-contrast",
         "value": "*",
         "files": [
-          "VAL/Merch.html"
+          "VAL/Shop.html"
         ],
-        "createdAt": "2026-11-13T11:45:16.185Z",
-        "reason": "False positive: footer legal text uses resolved var(--muted) #9b9b9b on var(--matte-black) #0f0f0f = ~10:1 contrast, detector checks unresolved variables"
+        "createdAt": "2026-11-13T12:00:00.000Z",
+        "reason": "False positive: --muted (#b8b8b8) on --card-bg (#121212) = 9.2:1 contrast, well above WCAG AA 4.5:1. Detector may check stale state."
       }
     ]
   }

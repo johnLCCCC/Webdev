@@ -69,18 +69,33 @@
 
 /* Legend styling */
 .tier-legend{
-  margin-top:12px; 
-  display:flex; 
-  gap:8px; 
-  justify-content:center; 
+  margin-top:12px;
+  display:flex;
+  gap:8px;
+  justify-content:center;
   align-items:center;
+}
+
+/* Tier headings for accessibility (h2 between h1 and h3) */
+.tier-heading {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--primary-text);
+  margin: 0 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* Tier row visuals */
 .tier-row{ background: rgba(255,255,255,0.01); border-bottom: 1px solid rgba(255,255,255,0.02);}
 .tier-row::before{ content: ""; display:block; position:absolute; height:3px; left:0; right:0; margin-top:-6px; background: linear-gradient(90deg, rgba(255,255,255,0.03), var(--primary) 50%, rgba(255,255,255,0.03)); }
 .tier-row + .tier-row{ border-top: 1px solid rgba(255,255,255,0.02); }
-.role-title{ padding-bottom:6px; border-bottom:1px solid rgba(255,255,255,0.03); margin-bottom:8px; }
+.role-title{ font-size: 14px; font-weight:700; color: var(--primary-text); margin: 0 0 8px; padding-bottom:6px; border-bottom:1px solid rgba(255,255,255,0.03); text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* Agent name inside card */
+.role-grid .card.agent-card.small .card-body h4 { font-size: 11px; margin: 0; }
 
 .role-grid .card.agent-card.small{ background: transparent; border: none; box-shadow: none; }
 .role-grid .card.agent-card.small .card-body{ padding-left: 0; width: 100%; }

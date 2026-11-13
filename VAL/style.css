@@ -7,7 +7,8 @@
 
 /* ---- Theme variables ---- */
 :root {
-  --primary:       #dc143c;   /* crimson accent          */
+  --primary:       #dc143c;   /* crimson accent (for backgrounds, borders) */
+  --primary-text:  #ff6b6b;   /* lighter crimson for text on dark bg (WCAG AA) */
   --primary-dark:  #b3122b;
   --primary-glow:  rgba(220, 20, 60, 0.4);
   --matte-black:   #0f0f0f;
@@ -72,7 +73,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--primary);
+  color: var(--primary-text);
   cursor: default;
   position: relative;
   padding-left: 8px;
@@ -122,7 +123,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .nav-links a:hover,
 .nav-links a:focus-visible {
-  color: var(--primary);
+  color: var(--primary-text);
   transform: translateY(-1px);
 }
 
@@ -132,7 +133,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 
 .nav-links a.active {
-  color: var(--primary);
+  color: var(--primary-text);
   background: rgba(220, 20, 60, 0.1);
 }
 
@@ -268,7 +269,7 @@ ul { list-style: none; margin: 0; padding: 0; }
 
 .slider-content a:hover {
   background: rgba(220, 20, 60, 0.12);
-  color: var(--primary);
+  color: var(--primary-text);
   border-color: rgba(220, 20, 60, 0.2);
   transform: translateX(4px);
 }
@@ -298,7 +299,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   font-size: 14px;
 }
 .logout-link {
-  color: var(--primary);
+  color: var(--primary-text);
   font-weight: 600;
   margin-left: 10px;
 }
@@ -427,13 +428,13 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 
 .disclaimer a {
-  color: var(--primary);
+  color: var(--primary-text);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
 .disclaimer a:hover {
-  color: var(--primary-dark);
+  color: var(--primary);
 }
 
 /* Backward compatibility for old <footer> tag */
@@ -475,7 +476,7 @@ footer {
   color: var(--muted);
   font-size: 14px;
 }
-.auth-back-link:hover { color: var(--primary); }
+.auth-back-link:hover { color: var(--primary-text); }
 .auth-form {
   display: flex;
   flex-direction: column;
