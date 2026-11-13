@@ -13,7 +13,7 @@
 <nav class="top-nav" role="navigation" aria-label="Main navigation">
   <div class="logo">VALORANT</div>
   <ul class="nav-links">
-    <li><a href="Index.html">Home</a></li>
+    <li><a href="index.html">Home</a></li>
     <li><a href="Agents.html">Agents</a></li>
     <li><a href="Merch.html">Merch</a></li>
     <li><a href="About.html">About Us</a></li>
@@ -29,8 +29,6 @@
     <span></span><span></span><span></span>
   </a>
   <div class="slider-content">
-    <a href="Login.html">Log In</a>
-    <a href="SignUp.html">Sign Up</a>
     <a href="About.html">About Us</a>
   </div>
 </div>
@@ -52,10 +50,7 @@
 
   <!-- Agent Tier List -->
   <section id="agent-tier" class="section-container scroll-reveal">
-    <div id="agentsLoginPrompt" class="auth-prompt">
-      <p>Please <a href="Login.html">log in</a> to view the full Agents Tier list.</p>
-    </div>
-    <div id="tier-list-container" class="tier-list" data-auth-required>
+    <div id="tier-list-container" class="tier-list">
       <!-- T0 Row -->
       <div class="tier-row">
         <div class="tier-label t0">T0</div>
@@ -274,14 +269,7 @@
     </div>
   </section>
 
-  <!-- Merch teaser (shown when logged in via Agents.js) -->
-  <section id="merch-section" class="section-container scroll-reveal">
-    <div id="agentsMerchPrompt" class="auth-prompt">
-      <p>Please <a href="Login.html">log in</a> to view all merchandise.</p>
-    </div>
-    <div id="merch-container" class="merch-list" data-auth-required></div>
-  </section>
-</main>
+  </main>
 
 <script src="Agents.js"></script>
 <script src="scroll-anim.js"></script>

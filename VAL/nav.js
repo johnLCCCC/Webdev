@@ -129,48 +129,4 @@ document.addEventListener('DOMContentLoaded', function(){
       moveUnderlineTo(a || navLinks[0]);
     });
   });
-  // ----- Authentication UI updates -----
-  function updateAuthUI(){
-    const currentUser = localStorage.getItem('currentUser');
-    const rightList = document.querySelector('.top-nav .right');
-    if(!rightList) return;
-    // remove previous welcome if exists
-    const existing = document.getElementById('userWelcome');
-    if(existing) existing.remove();
-    // Create or remove user greeting
-    if(currentUser){
-      const li = document.createElement('li');
-      li.id = 'userWelcome';
-      li.innerHTML = `<span class="user-welcome-text">Welcome, ${currentUser}</span> <a href="#" id="logoutLink" class="logout-link">Logout</a>`;
-      rightList.insertBefore(li, rightList.firstChild);
-      // Show protected content when logged in
-      document.querySelectorAll('[data-auth-required]').forEach(el => el.style.display = '');
-      document.querySelectorAll('[data-auth-hidden]').forEach(el => el.style.display = 'none');
-      // show welcome area if present
-      const welcomeEl = document.getElementById('welcomeUser');
-      const welcomeName = document.getElementById('welcomeName');
-      if(welcomeName) welcomeName.textContent = currentUser;
-      if(welcomeEl) welcomeEl.style.display = '';
-    } else {
-      // Hide protected content
-      document.querySelectorAll('[data-auth-required]').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('[data-auth-hidden]').forEach(el => el.style.display = '');
-      const welcomeEl = document.getElementById('welcomeUser');
-      if(welcomeEl) welcomeEl.style.display = 'none';
-    }
-    // Add logout handler
-    const logoutLink = document.getElementById('logoutLink');
-    if(logoutLink){
-      logoutLink.addEventListener('click', function(e){
-        e.preventDefault();
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('isLoggedIn');
-        // refresh UI and redirect to Login
-        updateAuthUI();
-        window.location.href = 'Login.html';
-      });
-    }
-  }
-  // Run once to set initial auth UI
-  updateAuthUI();
 });

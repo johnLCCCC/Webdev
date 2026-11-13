@@ -5,13 +5,8 @@ const products = {
 };
 
 // ======= CART HANDLING =======
-function getCurrentUser() {
-  return localStorage.getItem("currentUser");
-}
-
 function getCartKey() {
-  const user = getCurrentUser();
-  return user ? `cart_${user}` : "cart_guest";
+  return "cart_guest";
 }
 
 function readCart() {
@@ -60,20 +55,11 @@ function renderCart() {
   document.getElementById('cartTotal').textContent = formatPHP(total);
 }
 
-// ======= AUTH CHECK =======
-function isLoggedIn() {
-  return !!getCurrentUser();
-}
-
 // ======= EVENT LISTENERS =======
 document.addEventListener('click', (e) => {
 
   // Add to cart
   if (e.target.matches('.add-btn')) {
-    if (!isLoggedIn()) {
-      alert("Please log in to add items to your cart.");
-      return;
-    }
     const id = e.target.closest('.product-card').dataset.id;
     const cart = readCart();
     cart[id] = (cart[id] || 0) + 1;
@@ -83,10 +69,6 @@ document.addEventListener('click', (e) => {
 
   // Buy Now
   if (e.target.matches('.buy-btn')) {
-    if (!isLoggedIn()) {
-      alert("Please log in to buy items.");
-      return;
-    }
     const id = e.target.closest('.product-card').dataset.id;
     const product = products[id];
 
@@ -108,10 +90,6 @@ document.addEventListener('click', (e) => {
 
   // Checkout
   if (e.target.id === 'checkoutBtn') {
-    if (!isLoggedIn()) {
-      alert("Please log in to checkout.");
-      return;
-    }
     const cart = readCart();
     if (Object.keys(cart).length === 0) {
       alert("Your cart is empty.");
@@ -129,19 +107,11 @@ document.addEventListener('click', (e) => {
 
 // View Cart Button
 document.getElementById('viewCartBtn').addEventListener('click', () => {
-  if (!isLoggedIn()) {
-    alert("Please log in to view your cart.");
-    return;
-  }
   openCart();
 });
 
 // Reset Cart Button
 document.getElementById('resetCartBtn').addEventListener('click', () => {
-  if (!isLoggedIn()) {
-    alert("Please log in to reset your cart.");
-    return;
-  }
   if (confirm("Are you sure you want to clear your cart?")) {
     clearCart();
     renderCart();
@@ -150,12 +120,5 @@ document.getElementById('resetCartBtn').addEventListener('click', () => {
 
 // Initial render
 document.addEventListener("DOMContentLoaded", () => {
-  if (!isLoggedIn()) {
-    document.getElementById('agentsLoginPrompt').style.display = "block";
-    document.querySelector('.products-section').style.display = "none";
-    document.querySelector('.cart-footer').style.display = "none";
-  } else {
-    renderCart();
-  }
+  renderCart();
 });
-
