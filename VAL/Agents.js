@@ -331,31 +331,147 @@ const modalPassive = modal.querySelector(".agent-modal-passive");
 const modalSkills = modal.querySelector(".agent-modal-skills");
 const closeBtn = modal.querySelector(".agent-modal-close");
 
+// ====== ANIMATION HELPERS ======
+
+// Typewriter effect for passive text
+function typewriterEffect(element, text, speed = 18) {
+  return new Promise(resolve => {
+    element.textContent = "";
+    element.style.width = "0";
+    element.classList.add("typing");
+
+    let i = 0;
+    const timer = setInterval(() => {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        i++;
+      } else {
+        clearInterval(timer);
+        element.classList.remove("typing");
+        element.style.width = "auto";
+        element.style.borderRight = "none";
+        resolve();
+      }
+    }, speed);
+  });
+}
+
+// Staggered skill animation (JS-driven for reliability)
+function animateSkills() {
+  const items = modalSkills.querySelectorAll("li");
+  items.forEach((li, index) => {
+    // Use setTimeout for stagger
+    setTimeout(() => {
+      li.classList.add("visible");
+    }, index * 80); // 80ms stagger between each skill
+  });
+}
+
+// Reset all animations
+function resetAnimations() {
+  modalPassive.classList.remove("typing");
+  modalPassive.style.width = "auto";
+  modalPassive.style.borderRight = "none";
+  modalSkills.querySelectorAll("li").forEach(li => {
+    li.classList.remove("visible");
+    li.style.opacity = "";
+    li.style.transform = "";
+    li.style.transition = "";
+  });
+}
+
+// Subtle beep sound (optional, respects reduced motion)
+function playTypeSound() {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  try {
+    // @ts-ignore - webkitAudioContext exists on Safari/iOS
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+    const ctx = new AudioContextClass();
+    const oscillator = ctx.createOscillator();
+    const gainNode = ctx.createGain();
+    oscillator.connect(gainNode);
+    gainNode.connect(ctx.destination);
+    oscillator.frequency.value = 1200;
+    oscillator.type = "sine";
+    gainNode.gain.value = 0.02;
+    oscillator.start();
+    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+    oscillator.stop(ctx.currentTime + 0.05);
+  } catch (e) {
+    // Audio not supported or blocked - silently ignore
+  }
+}
+
+// Play sound for each character typed
+function typewriterWithSound(element, text, speed = 18) {
+  return new Promise(resolve => {
+    element.textContent = "";
+    element.style.width = "0";
+    element.classList.add("typing");
+
+    let i = 0;
+    const timer = setInterval(() => {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        if (text.charAt(i) !== " ") playTypeSound();
+        i++;
+      } else {
+        clearInterval(timer);
+        element.classList.remove("typing");
+        element.classList.add("typing-done");
+        element.style.width = "auto";
+        element.style.borderRight = "none";
+        resolve();
+      }
+    }, speed);
+  });
+}
+
 // ====== OPEN MODAL FUNCTION ======
 function openModal(agentId) {
   const agent = agentsData[agentId];
   if (!agent) return;
 
+  // Reset any previous animations
+  resetAnimations();
+
   modalImg.src = agent.img;
   modalImg.alt = agent.name + " portrait";
   modalName.textContent = agent.name;
   modalRole.textContent = "Role: " + agent.role;
-  modalPassive.textContent = "Passive: " + agent.passive;
 
-  modalSkills.innerHTML = ""; // clear previous skills
+  // Set passive text but don't animate yet
+  const passiveText = "Passive: " + agent.passive;
+  modalPassive.textContent = passiveText;
+
+  // Build skills list
+  modalSkills.innerHTML = "";
   agent.skills.forEach(skill => {
     const li = document.createElement("li");
-    li.textContent = skill;
+    li.textContent = skill.trim();
     modalSkills.appendChild(li);
   });
 
   modal.style.display = "flex";
+
+  // Trigger animations after a brief delay (allows modal to render)
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      // 1. Typewriter for passive
+      typewriterWithSound(modalPassive, passiveText, 15).then(() => {
+        // 2. Staggered skills after passive completes
+        setTimeout(animateSkills, 100);
+      });
+    }, 150);
+  });
 }
 
 
 // ====== CLOSE MODAL FUNCTION ======
 function closeModal() {
   modal.style.display = "none";
+  resetAnimations();
 }
 
 // ====== CLICK EVENT ON AGENTS ======
