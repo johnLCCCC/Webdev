@@ -96,6 +96,39 @@
 }
 .reset-cart:hover { background: rgba(255,255,255,0.06); }
 
+/* ---- Cart actions bar (View Cart / Clear Cart buttons) ---- */
+.cart-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  padding: 1rem;
+  flex-wrap: wrap;
+}
+.view-cart {
+  background-color: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+.view-cart:hover { background-color: var(--primary-dark); }
+.reset-cart {
+  padding: 0.6rem;
+  border: none;
+  border-radius: 5px;
+  background: var(--muted);
+  color: var(--text);
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease;
+}
+.reset-cart:hover { background: rgba(255,255,255,0.06); }
+
 /* ---- Cart modal (slide-in from right) ---- */
 .cart-modal {
   position: fixed;

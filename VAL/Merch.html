@@ -79,6 +79,25 @@
 
   </main>
 
+<!-- Cart Modal -->
+<div id="cartModal" class="cart-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Shopping cart">
+  <div class="cart-panel">
+    <button id="closeCart" class="close-cart" aria-label="Close cart">&times;</button>
+    <h3>Your Cart</h3>
+    <ul id="cartItems" class="cart-items"></ul>
+    <div class="cart-footer">
+      <div class="cart-total">Total: ₱<span id="cartTotal">0.00</span></div>
+      <button id="checkoutBtn" class="checkout">Checkout</button>
+    </div>
+  </div>
+</div>
+
+<!-- View/Reset Cart Buttons (shown when cart has items) -->
+<div class="cart-actions" id="cartActions" style="display: none;">
+  <button id="viewCartBtn" class="view-cart">View Cart</button>
+  <button id="resetCartBtn" class="reset-cart">Clear Cart</button>
+</div>
+
 <script src="Merch.js"></script>
 <script src="scroll-anim.js"></script>
 </body>

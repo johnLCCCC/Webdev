@@ -53,6 +53,12 @@ function renderCart() {
   });
 
   document.getElementById('cartTotal').textContent = formatPHP(total);
+
+  // Show/hide cart actions based on cart contents
+  const cartActions = document.getElementById('cartActions');
+  if (cartActions) {
+    cartActions.style.display = Object.keys(cart).length > 0 ? 'flex' : 'none';
+  }
 }
 
 // ======= EVENT LISTENERS =======

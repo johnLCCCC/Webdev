@@ -5,6 +5,38 @@ document.addEventListener('DOMContentLoaded', function(){
   const closeSlider = document.getElementById('closeSlider');
   const navLinks = document.querySelectorAll('.nav-links a');
   const navUnderline = document.querySelector('.nav-underline');
+  const topNav = document.querySelector('.top-nav');
+
+  // ---- Scroll effect for nav ----
+  let lastScrollY = window.scrollY;
+  const handleNavScroll = () => {
+    if (!topNav) return;
+    const currentScrollY = window.scrollY;
+
+    // Add scrolled class when past a threshold
+    if (currentScrollY > 20) {
+      topNav.classList.add('scrolled');
+    } else {
+      topNav.classList.remove('scrolled');
+    }
+
+    lastScrollY = currentScrollY;
+  };
+
+  // Throttled scroll listener
+  let scrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+      requestAnimationFrame(() => {
+        handleNavScroll();
+        scrollTicking = false;
+      });
+      scrollTicking = true;
+    }
+  }, { passive: true });
+
+  // Initial check
+  handleNavScroll();
 
   // toggle slider (menu) open/close
   let previousFocus = null;
@@ -93,6 +125,19 @@ document.addEventListener('DOMContentLoaded', function(){
     }
   });
 
+  // Close slider when clicking a link inside it
+  sliderMenu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      sliderMenu?.classList.remove('open');
+      arrowMenuBtn?.classList.remove('open');
+      closeSlider?.classList.remove('open');
+      arrowMenuBtn?.setAttribute('aria-expanded', 'false');
+      sliderMenu?.setAttribute('aria-hidden', 'true');
+      if(sliderMenu._removeTrap) { sliderMenu._removeTrap(); sliderMenu._removeTrap = null; }
+      document.body.style.overflow = '';
+    });
+  });
+
   // set active nav link based on current URL
   const currentPage = window.location.pathname.split('/').pop().toLowerCase();
   let activeSet = false;
@@ -106,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function(){
   // if nothing matches and no index, default to first link
   if(!activeSet && navLinks[0]) navLinks[0].classList.add('active');
 
-  // underline positioning helper
+  // underline positioning helper (kept for compatibility)
   function moveUnderlineTo(link){
     if(!navUnderline || !link) return;
     const linkRect = link.getBoundingClientRect();
