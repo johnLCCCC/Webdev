@@ -37,6 +37,7 @@ function formatDateTime(isoString) {
 // ============================================================
 let selectedVpBundle = null;
 let selectedPaymentMethod = 'gcash';
+let selectedRiotId = '';
 let currentVpStep = 'bundle';
 
 // ============================================================
@@ -73,6 +74,7 @@ function cacheElements() {
   els.vpSteps = {
     bundle: document.getElementById('vp-step-bundle'),
     payment: document.getElementById('vp-step-payment'),
+    riotid: document.getElementById('vp-step-riotid'),
     processing: document.getElementById('vp-step-processing'),
     success: document.getElementById('vp-step-success')
   };
@@ -85,13 +87,19 @@ function cacheElements() {
   // Step 2: Payment
   els.paymentMethods = document.querySelectorAll('.payment-method');
   els.vpBackBtn = document.getElementById('vp-back-btn');
-  els.vpPayBtn = document.getElementById('vp-pay-btn');
-  // Step 3: Processing
+  els.vpContinuePaymentBtn = document.getElementById('vp-continue-payment-btn');
+  // Step 3: Riot ID
+  els.riotIdInput = document.getElementById('vp-riot-id');
+  els.riotIdError = document.getElementById('vp-riot-id-error');
+  els.vpBackPaymentBtn = document.getElementById('vp-back-payment-btn');
+  els.vpContinueRiotIdBtn = document.getElementById('vp-continue-riotid-btn');
+  // Step 4: Processing
   els.processingText = document.getElementById('processing-text');
-  // Step 4: Success
+  // Step 5: Success
   els.vpReceiptId = document.getElementById('vp-receipt-id');
   els.vpReceiptBundle = document.getElementById('vp-receipt-bundle');
   els.vpReceiptVp = document.getElementById('vp-receipt-vp');
+  els.vpReceiptRiotId = document.getElementById('vp-receipt-riotid');
   els.vpReceiptPrice = document.getElementById('vp-receipt-price');
   els.vpReceiptMethod = document.getElementById('vp-receipt-method');
   els.vpReceiptDate = document.getElementById('vp-receipt-date');
@@ -197,10 +205,47 @@ function handlePaymentSelection(method) {
   });
 }
 
-async function handlePayNow() {
-  if (!selectedVpBundle) return;
-  showStep('processing');
+function handleContinueToRiotId() {
+  showStep('riotid');
+  // Focus Riot ID input
+  setTimeout(() => els.riotIdInput?.focus(), 100);
+}
 
+function validateRiotId(riotId) {
+  // Riot ID format: Name#Tag (e.g., TenZ#NA1, testname#1234)
+  // Name: 3-16 alphanumeric chars, Tag: 3-5 alphanumeric chars
+  const pattern = /^[a-zA-Z0-9]{3,16}#[a-zA-Z0-9]{3,5}$/;
+  return pattern.test(riotId.trim());
+}
+
+function handleContinueToProcessing() {
+  const riotId = els.riotIdInput?.value?.trim() || '';
+
+  if (!riotId) {
+    els.riotIdError.hidden = false;
+    els.riotIdError.textContent = 'Please enter your Riot ID';
+    els.riotIdInput.style.borderColor = 'var(--primary)';
+    els.riotIdInput.focus();
+    return;
+  }
+
+  if (!validateRiotId(riotId)) {
+    els.riotIdError.hidden = false;
+    els.riotIdError.textContent = 'Invalid format. Use Name#Tag (e.g., TenZ#NA1)';
+    els.riotIdInput.style.borderColor = 'var(--primary)';
+    els.riotIdInput.focus();
+    return;
+  }
+
+  // Valid - proceed to processing
+  els.riotIdError.hidden = true;
+  els.riotIdInput.style.borderColor = '';
+  selectedRiotId = riotId;
+  showStep('processing');
+  runProcessingAnimation();
+}
+
+async function runProcessingAnimation() {
   const steps = [
     { text: 'Verifying payment...', delay: 800 },
     { text: 'Processing transaction...', delay: 1000 },
@@ -209,7 +254,7 @@ async function handlePayNow() {
   ];
 
   for (const s of steps) {
-    els.processingText.textContent = s.text;
+    if (els.processingText) els.processingText.textContent = s.text;
     await new Promise(r => setTimeout(r, s.delay));
   }
 
@@ -224,6 +269,7 @@ function showSuccessReceipt() {
   els.vpReceiptId.textContent = txnId;
   els.vpReceiptBundle.textContent = `${selectedVpBundle.label} Bundle`;
   els.vpReceiptVp.textContent = formatVp(selectedVpBundle.totalVp);
+  if (els.vpReceiptRiotId) els.vpReceiptRiotId.textContent = selectedRiotId;
   els.vpReceiptPrice.textContent = formatPhp(selectedVpBundle.pricePhp);
   els.vpReceiptMethod.textContent = methodLabels[selectedPaymentMethod];
   els.vpReceiptDate.textContent = formatDateTime(now);
@@ -235,6 +281,7 @@ function downloadVpReceipt() {
   const txnId = els.vpReceiptId.textContent;
   const bundle = els.vpReceiptBundle.textContent;
   const vp = els.vpReceiptVp.textContent;
+  const riotId = els.vpReceiptRiotId?.textContent || 'N/A';
   const price = els.vpReceiptPrice.textContent;
   const method = els.vpReceiptMethod.textContent;
   const date = els.vpReceiptDate.textContent;
@@ -249,6 +296,7 @@ function downloadVpReceipt() {
 ╠══════════════════════════════════════╣
 ║ Bundle:    ${bundle.padEnd(28)} ║
 ║ VP:        ${vp.padEnd(28)} ║
+║ Riot ID:   ${riotId.padEnd(28)} ║
 ║ Price:     ${price.padEnd(28)} ║
 ║ Method:    ${method.padEnd(28)} ║
 ╠══════════════════════════════════════╣
@@ -294,11 +342,25 @@ function initVpPurchaseModal() {
   if (els.vpBackBtn) {
     els.vpBackBtn.addEventListener('click', () => showStep('bundle'));
   }
-  if (els.vpPayBtn) {
-    els.vpPayBtn.addEventListener('click', handlePayNow);
+  if (els.vpContinuePaymentBtn) {
+    els.vpContinuePaymentBtn.addEventListener('click', handleContinueToRiotId);
   }
 
-  // Step 4: Success actions
+  // Step 3: Riot ID input
+  if (els.vpBackPaymentBtn) {
+    els.vpBackPaymentBtn.addEventListener('click', () => showStep('payment'));
+  }
+  if (els.vpContinueRiotIdBtn) {
+    els.vpContinueRiotIdBtn.addEventListener('click', handleContinueToProcessing);
+  }
+  if (els.riotIdInput) {
+    els.riotIdInput.addEventListener('input', () => {
+      els.riotIdError.hidden = true;
+      els.riotIdInput.style.borderColor = '';
+    });
+  }
+
+  // Step 5: Success actions
   if (els.vpDownloadReceipt) {
     els.vpDownloadReceipt.addEventListener('click', downloadVpReceipt);
   }

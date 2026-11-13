@@ -178,11 +178,36 @@
       </div>
       <div class="vp-step-actions">
         <button class="btn btn-secondary" id="vp-back-btn">Back</button>
-        <button class="btn btn-primary" id="vp-pay-btn">Pay Now</button>
+        <button class="btn btn-primary" id="vp-continue-payment-btn">Continue</button>
       </div>
     </div>
 
-    <!-- Step 3: Processing -->
+    <!-- Step 3: Riot ID Input (NEW) -->
+    <div id="vp-step-riotid" class="vp-step" hidden>
+      <h2>Enter Your Riot ID</h2>
+      <p class="payment-hint">Your VP will be credited to this account</p>
+      <div class="riot-id-input-group">
+        <label for="vp-riot-id" class="riot-id-label">Riot ID</label>
+        <div class="riot-id-input-wrapper">
+          <input
+            type="text"
+            id="vp-riot-id"
+            placeholder="GameName#Tag123"
+            aria-label="Enter your Riot ID (e.g., testname#1234)"
+            maxlength="50"
+            autocomplete="off"
+          >
+          <span class="riot-id-hint">Format: Name#Tag (e.g., TenZ#NA1)</span>
+        </div>
+        <p id="vp-riot-id-error" class="riot-id-error" hidden>Please enter a valid Riot ID (Name#Tag)</p>
+      </div>
+      <div class="vp-step-actions">
+        <button class="btn btn-secondary" id="vp-back-payment-btn">Back</button>
+        <button class="btn btn-primary" id="vp-continue-riotid-btn">Continue to Payment</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Processing -->
     <div id="vp-step-processing" class="vp-step" hidden>
       <div class="processing-animation">
         <div class="spinner"></div>
@@ -190,7 +215,7 @@
       </div>
     </div>
 
-    <!-- Step 4: Success Receipt -->
+    <!-- Step 5: Success Receipt -->
     <div id="vp-step-success" class="vp-step" hidden>
       <div class="success-icon">✅</div>
       <h2>Purchase Successful!</h2>
@@ -199,6 +224,7 @@
         <div class="receipt-row"><span>Transaction ID</span><strong id="vp-receipt-id"></strong></div>
         <div class="receipt-row"><span>Bundle</span><strong id="vp-receipt-bundle"></strong></div>
         <div class="receipt-row"><span>VP Received</span><strong id="vp-receipt-vp"></strong></div>
+        <div class="receipt-row"><span>Riot ID</span><strong id="vp-receipt-riotid"></strong></div>
         <div class="receipt-row"><span>Amount Paid</span><strong id="vp-receipt-price"></strong></div>
         <div class="receipt-row"><span>Payment Method</span><strong id="vp-receipt-method"></strong></div>
         <div class="receipt-row"><span>Date</span><strong id="vp-receipt-date"></strong></div>
