@@ -20,6 +20,69 @@
         ],
         "createdAt": "2026-11-13T12:00:00.000Z",
         "reason": "False positive: --muted (#b8b8b8) on --card-bg (#121212) = 9.2:1 contrast, well above WCAG AA 4.5:1. Detector may check stale state."
+      },
+      {
+        "rule": "gradient-text",
+        "value": "*",
+        "files": [
+          "VAL/guides.css"
+        ],
+        "createdAt": "2026-11-14T09:53:23.558Z",
+        "reason": "Intentional gaming-site hero heading gradient for brand identity; consistent with Valorant's crimson/white brand colors"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "VAL/guides.css"
+        ],
+        "createdAt": "2026-11-14T09:59:45.765Z",
+        "reason": "Intentional Valorant-themed crimson glow on interactive elements (filter buttons, hover states) — consistent with game's visual identity and brand colors"
+      },
+      {
+        "rule": "icon-tile-stack",
+        "value": "*",
+        "files": [
+          "VAL/Guides.html"
+        ],
+        "createdAt": "2026-11-14T10:00:05.383Z",
+        "reason": "Deliberate gaming-site card pattern: role icons in colored containers above titles for instant visual role recognition (Duelist/Initiator/Controller/Sentinel color coding) - not AI template"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "VAL/index.html"
+        ],
+        "createdAt": "2026-11-14T11:33:13.129Z",
+        "reason": "Intentional Valorant brand crimson glow on active navigation - consistent with game's visual identity"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "VAL/Agents.html"
+        ],
+        "createdAt": "2026-11-14T11:33:19.660Z",
+        "reason": "Intentional Valorant brand crimson glow on active states - consistent with game's visual identity"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "VAL/Shop.html"
+        ],
+        "createdAt": "2026-11-14T11:33:27.183Z",
+        "reason": "Intentional Valorant brand crimson glow on active states - consistent with game's visual identity"
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "VAL/About.html"
+        ],
+        "createdAt": "2026-11-14T11:33:33.499Z",
+        "reason": "Intentional Valorant brand crimson glow on active states - consistent with game's visual identity"
       }
     ]
   }

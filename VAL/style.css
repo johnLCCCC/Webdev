@@ -134,22 +134,14 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 
 .nav-links a.active {
-  color: var(--primary-text);
-  background: rgba(220, 20, 60, 0.1);
+  color: #fff;
+  background: #dc143c;
+  box-shadow: 0 4px 16px rgba(220, 20, 60, 0.5);
+  border-radius: var(--nav-link-radius);
 }
 
 .nav-links a.active::after {
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-bottom: 6px solid var(--primary);
-  pointer-events: none;
+  display: none; /* hide triangle */
 }
 
 /* Animated underline (kept for backward compatibility, but hidden by default) */

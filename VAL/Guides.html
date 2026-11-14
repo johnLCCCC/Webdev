@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guides — Valorant</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="guides.css">
+  <link rel="stylesheet" href="guides-modal.css">
+</head>
+
+<link rel="icon" type="image/png" href="dum.png">
+
+<body>
+
+<nav class="top-nav" role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="logo" aria-label="Valorant Home">VALO?</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="Agents.html">Agents</a></li>
+    <li><a href="Guides.html" class="active">Guides</a></li>
+    <li><a href="Shop.html">Shop</a></li>
+    <li><a href="About.html">About Us</a></li>
+  </ul>
+  <div class="nav-underline" aria-hidden="true"></div>
+  <a href="#" id="arrowMenuBtn" class="hamburger-icon" aria-controls="sliderMenu" aria-expanded="false" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </a>
+</nav>
+
+<div id="sliderMenu" role="dialog" aria-modal="true" aria-hidden="true">
+  <a href="#" id="closeSlider" class="hamburger-icon" aria-label="Close menu">
+    <span></span><span></span><span></span>
+  </a>
+  <div class="slider-content" role="menu">
+    <a role="menuitem" href="Shop.html">Shop</a>
+    <a role="menuitem" href="About.html">About Us</a>
+  </div>
+</div>
+
+<script src="nav.js"></script>
+
+<main>
+  <!-- Guides Hero Section -->
+  <section class="section-band guides-hero scroll-reveal">
+    <div class="section-inner">
+      <div class="guides-hero-text">
+        <h1>VALORANT GUIDES</h1>
+        <p>Master every role, understand every agent, and climb the ranks with our comprehensive guides.</p>
+        <div class="guides-hero-stats">
+          <div class="stat">
+            <span class="stat-number">4</span>
+            <span class="stat-label">Roles</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">30</span>
+            <span class="stat-label">Agents</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">∞</span>
+            <span class="stat-label">Strategies</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Role Guides Section -->
+  <section id="role-guides" class="section-band role-guides-band scroll-reveal">
+    <div class="section-inner">
+      <div class="guides-header">
+        <h2>ROLE GUIDES</h2>
+        <p class="section__text__p2">Understand the core responsibilities, playstyles, and fundamentals of each role.</p>
+      </div>
+      <div class="role-cards-grid" role="list" aria-label="Role Guides">
+        <!-- Duelist -->
+        <article class="guide-card role-card" data-guide-id="role-duelist" tabindex="0" role="listitem">
+          <div class="guide-card-icon duelist-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div class="guide-card-content">
+            <h3 class="guide-card-title">Duelist</h3>
+            <p class="guide-card-desc">Self-sufficient fraggers who create space and take duels. Entry specialists.</p>
+            <span class="guide-card-count">9 Agents</span>
+          </div>
+          <span class="guide-card-arrow" aria-hidden="true">›</span>
+        </article>
+
+        <!-- Initiator -->
+        <article class="guide-card role-card" data-guide-id="role-initiator" tabindex="0" role="listitem">
+          <div class="guide-card-icon initiator-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          </div>
+          <div class="guide-card-content">
+            <h3 class="guide-card-title">Initiator</h3>
+            <p class="guide-card-desc">Information gatherers who set up plays with utility. Enable team entry.</p>
+            <span class="guide-card-count">7 Agents</span>
+          </div>
+          <span class="guide-card-arrow" aria-hidden="true">›</span>
+        </article>
+
+        <!-- Controller -->
+        <article class="guide-card role-card" data-guide-id="role-controller" tabindex="0" role="listitem">
+          <div class="guide-card-icon controller-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+          </div>
+          <div class="guide-card-content">
+            <h3 class="guide-card-title">Controller</h3>
+            <p class="guide-card-desc">Smoke specialists who control sightlines and dictate the pace of rounds.</p>
+            <span class="guide-card-count">7 Agents</span>
+          </div>
+          <span class="guide-card-arrow" aria-hidden="true">›</span>
+        </article>
+
+        <!-- Sentinel -->
+        <article class="guide-card role-card" data-guide-id="role-sentinel" tabindex="0" role="listitem">
+          <div class="guide-card-icon sentinel-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="guide-card-content">
+            <h3 class="guide-card-title">Sentinel</h3>
+            <p class="guide-card-desc">Defensive anchors who lock down sites and provide team utility. Flank watchers.</p>
+            <span class="guide-card-count">7 Agents</span>
+          </div>
+          <span class="guide-card-arrow" aria-hidden="true">›</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Agent Guides Section -->
+  <section id="agent-guides" class="section-band agent-guides-band scroll-reveal">
+    <div class="section-inner">
+      <div class="guides-header">
+        <h2>AGENT GUIDES</h2>
+        <p class="section__text__p2">Quick-reference guides for every agent — abilities, playstyle, and key tips.</p>
+      </div>
+      <div class="guides-filter" role="tablist" aria-label="Filter by role">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true" aria-controls="agent-guides-grid">All Agents</button>
+        <button class="filter-btn" data-filter="duelist" role="tab" aria-selected="false">Duelist</button>
+        <button class="filter-btn" data-filter="initiator" role="tab" aria-selected="false">Initiator</button>
+        <button class="filter-btn" data-filter="controller" role="tab" aria-selected="false">Controller</button>
+        <button class="filter-btn" data-filter="sentinel" role="tab" aria-selected="false">Sentinel</button>
+      </div>
+      <div id="agent-guides-grid" class="agent-guides-grid" role="list" aria-label="Agent Guides">
+        <!-- Agent guide cards will be rendered by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Guides Section -->
+  <section class="section-band featured-guides-band scroll-reveal">
+    <div class="section-inner">
+      <div class="guides-header">
+        <h2>FEATURED GUIDES</h2>
+        <p class="section__text__p2">Essential mechanics and strategy guides to level up your game.</p>
+      </div>
+      <div class="featured-guides-grid" role="list">
+        <article class="featured-guide-card" tabindex="0" role="listitem" data-guide-id="featured-economy">
+          <div class="featured-guide-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><path d="M18 20v-8"/><path d="M6 20v-4"/></svg>
+          </div>
+          <h3>Economy Management</h3>
+          <p>When to buy, force, save, and eco. Master the credit system.</p>
+          <span class="featured-guide-tag">Mechanics</span>
+        </article>
+        <article class="featured-guide-card" tabindex="0" role="listitem" data-guide-id="featured-crosshair">
+          <div class="featured-guide-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Crosshair Placement</h3>
+          <p>Head-level aiming, pre-fire angles, and reducing reaction time.</p>
+          <span class="featured-guide-tag">Mechanics</span>
+        </article>
+        <article class="featured-guide-card" tabindex="0" role="listitem" data-guide-id="featured-callouts">
+          <div class="featured-guide-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
+          </div>
+          <h3>Map Callouts</h3>
+          <p>Standard callouts for every competitive map. Communicate like a pro.</p>
+          <span class="featured-guide-tag">Maps</span>
+        </article>
+        <article class="featured-guide-card" tabindex="0" role="listitem" data-guide-id="featured-compositions">
+          <div class="featured-guide-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Team Compositions</h3>
+          <p>Role synergies, meta comps, and drafting for ranked play.</p>
+          <span class="featured-guide-tag">Strategy</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Role Guide Modal -->
+<div id="role-guide-modal" class="guide-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="role-modal-title">
+  <div class="guide-modal-content">
+    <button class="guide-modal-close" aria-label="Close modal">&times;</button>
+    <div class="guide-modal-header">
+      <div class="guide-modal-icon" aria-hidden="true"></div>
+      <div>
+        <h2 id="role-modal-title" class="guide-modal-title"></h2>
+        <p class="guide-modal-subtitle"></p>
+      </div>
+    </div>
+    <div class="guide-modal-body">
+      <section class="guide-modal-section">
+        <h3>Role Overview</h3>
+        <p id="role-overview"></p>
+      </section>
+      <section class="guide-modal-section">
+        <h3>Core Responsibilities</h3>
+        <ul id="role-responsibilities"></ul>
+      </section>
+      <section class="guide-modal-section">
+        <h3>Fundamental Concepts</h3>
+        <ul id="role-concepts"></ul>
+      </section>
+      <section class="guide-modal-section">
+        <h3>Agents in this Role</h3>
+        <div id="role-agents" class="role-agents-grid"></div>
+      </section>
+      <section class="guide-modal-section">
+        <h3>Beginner Checklist</h3>
+        <ul id="role-checklist"></ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- Agent Guide Modal -->
+<div id="agent-guide-modal" class="guide-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="agent-modal-title">
+  <div class="guide-modal-content agent-guide-modal-content">
+    <button class="guide-modal-close" aria-label="Close modal">&times;</button>
+    <div class="agent-guide-modal-header">
+      <img id="agent-modal-img" class="agent-guide-modal-img" src="" alt="">
+      <div class="agent-guide-modal-info">
+        <h2 id="agent-modal-title" class="guide-modal-title"></h2>
+        <p id="agent-modal-role" class="guide-modal-subtitle"></p>
+        <div class="agent-guide-difficulty">
+          <span class="difficulty-label">Difficulty:</span>
+          <span id="agent-modal-difficulty" class="difficulty-value"></span>
+        </div>
+      </div>
+    </div>
+    <div class="guide-modal-body">
+      <section class="guide-modal-section">
+        <h3>Passive</h3>
+        <p id="agent-passive"></p>
+      </section>
+      <section class="guide-modal-section">
+        <h3>Playstyle Overview</h3>
+        <p id="agent-playstyle"></p>
+      </section>
+      <section class="guide-modal-section">
+        <h3>Abilities</h3>
+        <div id="agent-abilities" class="agent-abilities-list"></div>
+      </section>
+      <section class="guide-modal-section">
+        <h3>Key Combos & Tips</h3>
+        <ul id="agent-combos"></ul>
+      </section>
+      <section class="guide-modal-section">
+        <h3>Common Mistakes</h3>
+        <ul id="agent-mistakes"></ul>
+      </section>
+      <section class="guide-modal-section">
+        <h3>Best Maps</h3>
+        <div id="agent-maps" class="agent-maps-tags"></div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- Featured Guide Modal -->
+<div id="featured-guide-modal" class="guide-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="featured-modal-title">
+  <div class="guide-modal-content">
+    <button class="guide-modal-close" aria-label="Close modal">&times;</button>
+    <div class="guide-modal-header">
+      <div class="guide-modal-icon featured-modal-icon" aria-hidden="true"></div>
+      <div>
+        <h2 id="featured-modal-title" class="guide-modal-title"></h2>
+        <p id="featured-modal-tag" class="guide-modal-subtitle"></p>
+      </div>
+    </div>
+    <div class="guide-modal-body">
+      <section class="guide-modal-section">
+        <h3>Overview</h3>
+        <p id="featured-overview"></p>
+      </section>
+      <section class="guide-modal-section">
+        <h3>Key Concepts</h3>
+        <ul id="featured-concepts"></ul>
+      </section>
+      <section class="guide-modal-section">
+        <h3>Pro Tips</h3>
+        <ul id="featured-tips"></ul>
+      </section>
+      <section class="guide-modal-section">
+        <h3>Common Mistakes</h3>
+        <ul id="featured-mistakes"></ul>
+      </section>
+      <section class="guide-modal-section">
+        <h3>Practice Drills</h3>
+        <ul id="featured-drills"></ul>
+      </section>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <p class="copyright">&copy; 2026 VAL — BSIT Students Project</p>
+    <p class="disclaimer">
+      This is a student project for educational purposes only.
+      <br>
+      <strong>Disclaimer:</strong> VALORANT is a trademark of Riot Games, Inc.
+      This website is not affiliated with, endorsed by, sponsored by, or approved by Riot Games, Inc.
+      All game content, characters, images, and trademarks are property of their respective owners.
+      Used under Riot Games' <a href="https://www.riotgames.com/en/legal" target="_blank" rel="noopener">Legal Jibber Jabber</a> policy.
+    </p>
+  </div>
+</footer>
+
+<script src="guides.js"></script>
+<script src="scroll-anim.js"></script>
+</body>
+</html>

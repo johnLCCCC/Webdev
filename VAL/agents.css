@@ -4,6 +4,96 @@
   --agents-gap: 16px;
 }
 
+/* Meta Header & Badge */
+.meta-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.meta-badge {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: right;
+}
+
+.patch-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(220, 20, 60, 0.3), rgba(220, 20, 60, 0.1));
+  color: var(--primary-text);
+  border: 1px solid rgba(220, 20, 60, 0.3);
+  white-space: nowrap;
+}
+
+.meta-date {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* Meta Context Section */
+#meta-context {
+  padding: 40px 20px 60px;
+}
+
+.meta-context-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.meta-context-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+}
+
+.meta-context-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(220, 20, 60, 0.2);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+}
+
+.meta-context-card h3 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-text);
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.meta-context-card p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .meta-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .meta-badge {
+    text-align: left;
+    width: 100%;
+  }
+}
+
 /* Agent cards grid overrides to better fit the agent list */
 #agent-tier .cards-grid{
   display: grid;

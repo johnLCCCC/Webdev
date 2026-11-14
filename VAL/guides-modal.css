@@ -1,0 +1,465 @@
+/* ============================================================
+   GUIDES MODAL STYLES (Role & Agent)
+   ============================================================ */
+
+.guide-modal {
+  display: none;
+  position: fixed;
+  z-index: 1100;
+  inset: 0;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px 20px;
+  animation: fadeIn 200ms ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.guide-modal.open {
+  display: flex;
+}
+
+.guide-modal-content {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  color: var(--text);
+  animation: slideUp 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.guide-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 180ms ease, border-color 180ms ease, transform 120ms ease;
+  z-index: 10;
+}
+
+.guide-modal-close:hover {
+  background: rgba(220, 20, 60, 0.2);
+  border-color: var(--primary);
+  transform: scale(1.05);
+}
+
+.guide-modal-close:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   TYPEWRITER ANIMATION STYLES (for agent passive & playstyle)
+   ============================================================ */
+.guide-modal-body #agent-passive,
+.guide-modal-body #agent-playstyle {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0;
+  animation: none;
+}
+
+.guide-modal-body #agent-passive.typing,
+.guide-modal-body #agent-playstyle.typing {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--primary);
+  animation: typewriter 1.5s steps(40, end) forwards, blink-caret 0.75s step-end infinite;
+}
+
+.guide-modal-body #agent-passive.typing-done,
+.guide-modal-body #agent-playstyle.typing-done {
+  overflow: visible;
+  white-space: normal;
+  border-right: none;
+  animation: none;
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent; }
+  50% { border-color: var(--primary); }
+}
+
+/* ============================================================
+   SHARED MODAL HEADER
+   ============================================================ */
+.guide-modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.guide-modal-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.guide-modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 4px;
+  color: var(--text);
+}
+
+.guide-modal-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   ROLE MODAL SPECIFIC
+   ============================================================ */
+.guide-modal-body {
+  padding: 24px;
+}
+
+.guide-modal-section {
+  margin-bottom: 28px;
+}
+
+.guide-modal-section:last-child {
+  margin-bottom: 0;
+}
+
+.guide-modal-section h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--primary-text);
+  margin: 0 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.guide-modal-section p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0;
+}
+
+.guide-modal-section ul {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.guide-modal-section li {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  position: relative;
+  padding-left: 8px;
+}
+
+.guide-modal-section li::marker {
+  color: var(--primary-text);
+}
+
+/* Role agents grid */
+.role-agents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.role-agent-mini {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.role-agent-mini:hover {
+  transform: translateY(-2px);
+  border-color: rgba(220, 20, 60, 0.2);
+}
+
+.role-agent-mini-name {
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: var(--text);
+}
+
+.role-agent-mini-role {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 1px 6px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.role-agent-mini-role.duelist { background: rgba(255, 68, 68, 0.2); color: var(--role-duelist); }
+.role-agent-mini-role.initiator { background: rgba(68, 170, 255, 0.2); color: var(--role-initiator); }
+.role-agent-mini-role.controller { background: rgba(136, 68, 255, 0.2); color: var(--role-controller); }
+.role-agent-mini-role.sentinel { background: rgba(68, 255, 136, 0.2); color: var(--role-sentinel); }
+
+/* ============================================================
+   AGENT MODAL SPECIFIC
+   ============================================================ */
+.agent-guide-modal-content {
+  max-width: 580px;
+}
+
+.agent-guide-modal-header {
+  display: flex;
+  gap: 20px;
+  padding: 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.agent-guide-modal-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.agent-guide-modal-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.agent-guide-difficulty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.difficulty-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.difficulty-value {
+  display: flex;
+  gap: 4px;
+}
+
+.difficulty-bar {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.1);
+}
+
+.difficulty-bar.filled {
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary-glow);
+}
+
+/* Agent abilities list */
+.agent-abilities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.agent-ability-item {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  gap: 12px;
+  transition: border-color 180ms ease;
+}
+
+.agent-ability-item:hover {
+  border-color: rgba(220, 20, 60, 0.15);
+}
+
+.agent-ability-key {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(220, 20, 60, 0.2), rgba(220, 20, 60, 0.08));
+  border: 1px solid rgba(220, 20, 60, 0.2);
+  color: var(--primary-text);
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.agent-ability-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.agent-ability-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.agent-ability-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Agent maps tags */
+.agent-maps-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.agent-map-tag {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--muted);
+  transition: all 180ms ease;
+}
+
+.agent-map-tag:hover {
+  background: rgba(220, 20, 60, 0.15);
+  border-color: var(--primary);
+  color: var(--primary-text);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 600px) {
+  .guide-modal {
+    padding: 20px 12px;
+    align-items: stretch;
+  }
+
+  .guide-modal-content {
+    max-height: 100vh;
+    border-radius: 12px;
+  }
+
+  .guide-modal-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    padding: 20px 20px 12px;
+  }
+
+  .guide-modal-body {
+    padding: 20px;
+  }
+
+  .guide-modal-icon,
+  .agent-guide-modal-img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .agent-guide-modal-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .agent-ability-item {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .agent-ability-key {
+    width: auto;
+    height: auto;
+    padding: 6px 12px;
+    border-radius: 6px;
+  }
+
+  .role-agents-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}
+
+/* Reduced motion support for typewriter */
+@media (prefers-reduced-motion: reduce) {
+  .guide-modal-body #agent-passive,
+  .guide-modal-body #agent-playstyle {
+    animation: none !important;
+    overflow: visible !important;
+    white-space: normal !important;
+    border-right: none !important;
+    width: auto !important;
+  }
+}

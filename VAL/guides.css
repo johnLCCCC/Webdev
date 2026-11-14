@@ -1,0 +1,657 @@
+/* Guides-specific styles */
+
+:root {
+  --guides-gap: 16px;
+  --role-duelist: #ff4444;
+  --role-initiator: #44aaff;
+  --role-controller: #8844ff;
+  --role-sentinel: #44ff88;
+}
+
+/* ============================================================
+   GUIDES HERO
+   ============================================================ */
+.guides-hero {
+  background: linear-gradient(180deg, rgba(220, 20, 60, 0.08), transparent 60%);
+  padding: 80px 20px 60px;
+}
+
+.guides-hero-text {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.guides-hero-text h1 {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  background: linear-gradient(90deg, var(--primary-text), #fff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+}
+
+.guides-hero-text > p {
+  font-size: 18px;
+  color: var(--muted);
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.guides-hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.stat-number {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--primary-text);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* ============================================================
+   SECTION HEADER (Shared)
+   ============================================================ */
+.guides-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.guides-header h2 {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+/* ============================================================
+   ROLE GUIDES SECTION
+   ============================================================ */
+.role-guides-band {
+  padding: 60px 20px 80px;
+}
+
+.role-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--guides-gap);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.guide-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.guide-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--role-color, var(--primary));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.guide-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  border-color: rgba(220, 20, 60, 0.2);
+}
+
+.guide-card:hover::before {
+  transform: scaleX(1);
+}
+
+.guide-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.guide-card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.duelist-icon {
+  background: rgba(255, 68, 68, 0.15);
+  color: var(--role-duelist);
+}
+
+.initiator-icon {
+  background: rgba(68, 170, 255, 0.15);
+  color: var(--role-initiator);
+}
+
+.controller-icon {
+  background: rgba(136, 68, 255, 0.15);
+  color: var(--role-controller);
+}
+
+.sentinel-icon {
+  background: rgba(68, 255, 136, 0.15);
+  color: var(--role-sentinel);
+}
+
+.guide-card-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.guide-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: var(--text);
+}
+
+.guide-card-desc {
+  font-size: 14px;
+  color: var(--muted);
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+
+.guide-card-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--role-color, var(--primary));
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.guide-card-arrow {
+  font-size: 20px;
+  color: var(--muted);
+  transition: transform 200ms ease, color 200ms ease;
+  flex-shrink: 0;
+}
+
+.guide-card:hover .guide-card-arrow {
+  transform: translateX(4px);
+  color: var(--primary-text);
+}
+
+/* Set role colors via inline style on cards */
+.guide-card[data-guide-id="role-duelist"] { --role-color: var(--role-duelist); }
+.guide-card[data-guide-id="role-initiator"] { --role-color: var(--role-initiator); }
+.guide-card[data-guide-id="role-controller"] { --role-color: var(--role-controller); }
+.guide-card[data-guide-id="role-sentinel"] { --role-color: var(--role-sentinel); }
+
+/* ============================================================
+   AGENT GUIDES SECTION
+   ============================================================ */
+.agent-guides-band {
+  padding: 60px 20px 80px;
+  background: rgba(255,255,255,0.01);
+}
+
+.guides-filter {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+  position: relative; /* for potential underline */
+}
+
+.filter-btn {
+  position: relative;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--card-bg);
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 180ms ease, border-color 180ms ease, transform 120ms ease, box-shadow 180ms ease;
+  white-space: nowrap;
+  overflow: hidden; /* clips the fill */
+}
+
+/* Inactive buttons keep hover transitions */
+.filter-btn:not(.active) {
+  transition: color 180ms ease, border-color 180ms ease, transform 120ms ease, box-shadow 180ms ease;
+}
+
+/* Active button: disable hover transitions to prevent linger */
+.filter-btn.active {
+  transition: box-shadow 180ms ease, background 0ms, color 0ms, border-color 0ms, transform 0ms;
+}
+
+/* Full fill for active state (crimson) */
+.filter-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #dc143c;  /* deep crimson for active */
+  border-radius: inherit;
+  transform: scaleX(0);
+  transform-origin: var(--fill-origin, center);
+  transition: transform 150ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  z-index: -1;
+}
+
+/* Bottom underline for hover preview (warm coral) */
+.filter-btn::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: #ff6b5c;  /* warm coral for hover */
+  transform: translateX(-50%);
+  transition: width 150ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  z-index: 1;
+}
+
+/* Hover: warm coral underline + warm text, subtle lift */
+.filter-btn:not(.active):hover {
+  color: #ffeaea;  /* warm white */
+  transform: translateY(-1px);
+}
+
+.filter-btn:not(.active):hover::after {
+  width: 80%;
+}
+
+/* Active: deep crimson full fill + glow, no underline */
+.filter-btn.active {
+  color: #fff;
+  background: #dc143c;
+  box-shadow: 0 4px 16px rgba(220, 20, 60, 0.5);
+  border-color: transparent;
+}
+
+.filter-btn.active::before {
+  transform: scaleX(1);
+}
+
+.filter-btn.active::after {
+  width: 0;  /* hide hover underline when active */
+}
+
+.filter-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support for filter button fill */
+@media (prefers-reduced-motion: reduce) {
+  .filter-btn::before,
+  .filter-btn::after {
+    transition: none;
+    transform: scaleX(0);
+    width: 0;
+  }
+  .filter-btn.active::before {
+    transform: scaleX(1);
+  }
+  .filter-btn.active::after {
+    width: 0;
+  }
+  .filter-btn:not(.active):hover::after {
+    width: 0;
+  }
+}
+
+.agent-guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: var(--guides-gap);
+  max-width: 1400px;
+  margin: 0 auto;
+  /* Transition container for smooth filtering */
+  transition: opacity 200ms ease, min-height 300ms ease;
+}
+
+.agent-guides-grid.filtering {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.agent-guide-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease, opacity 300ms ease;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  /* Animation state */
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.agent-guide-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.35);
+  border-color: rgba(220, 20, 60, 0.15);
+}
+
+/* ============================================================
+   FILTER TRANSITION ANIMATIONS (Cross-Fade + Stagger)
+   ============================================================ */
+
+/* Container state during filter */
+.agent-guides-grid.filtering {
+  opacity: 0.35;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+}
+
+/* Base card transition for filter animations */
+.agent-guide-card {
+  transition: opacity 300ms cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+/* Exit animation - cards leaving */
+.agent-guide-card.exiting {
+  opacity: 0;
+  transform: translateY(-14px) scale(0.94);
+  pointer-events: none;
+  transition: opacity 250ms ease-out, transform 250ms ease-out;
+}
+
+/* Enter animation - cards arriving (initial state) */
+.agent-guide-card.entering {
+  opacity: 0;
+  transform: translateY(18px) scale(0.94);
+  pointer-events: none;
+  /* Animation triggered by JS removing .entering and adding .animate-in */
+  transition: opacity 380ms cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 380ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--stagger-delay, 0ms);
+}
+
+/* Enter animation - active state (applied by JS after reflow) */
+.agent-guide-card.animate-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .agent-guides-grid {
+    transition: none;
+  }
+  .agent-guides-grid.filtering {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .agent-guide-card {
+    transition: none;
+  }
+  .agent-guide-card.exiting {
+    display: none;
+  }
+  .agent-guide-card.entering {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  .agent-guide-card.animate-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.agent-guide-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+}
+
+.agent-guide-card-thumb {
+  aspect-ratio: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.agent-guide-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 300ms ease;
+}
+
+.agent-guide-card:hover .agent-guide-card-thumb img {
+  transform: scale(1.05);
+}
+
+.agent-guide-card-body {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.agent-guide-card-name {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text);
+}
+
+.agent-guide-card-role {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 10px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.agent-guide-card-role.duelist { background: rgba(255, 68, 68, 0.2); color: var(--role-duelist); }
+.agent-guide-card-role.initiator { background: rgba(68, 170, 255, 0.2); color: var(--role-initiator); }
+.agent-guide-card-role.controller { background: rgba(136, 68, 255, 0.2); color: var(--role-controller); }
+.agent-guide-card-role.sentinel { background: rgba(68, 255, 136, 0.2); color: var(--role-sentinel); }
+
+.agent-guide-card-difficulty {
+  font-size: 11px;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.difficulty-dots {
+  display: flex;
+  gap: 2px;
+}
+
+.difficulty-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+}
+
+.difficulty-dot.filled {
+  background: var(--primary);
+}
+
+/* ============================================================
+   FEATURED GUIDES SECTION
+   ============================================================ */
+.featured-guides-band {
+  padding: 60px 20px 80px;
+}
+
+.featured-guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--guides-gap);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.featured-guide-card {
+  background: var(--card-bg);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 16px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  cursor: default;
+}
+
+.featured-guide-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(0,0,0,0.35);
+  border-color: rgba(220, 20, 60, 0.15);
+}
+
+.featured-guide-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.featured-guide-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: rgba(220, 20, 60, 0.15);
+  color: var(--primary-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  svg {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.featured-guide-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 10px;
+  color: var(--text);
+}
+
+.featured-guide-card p {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.featured-guide-tag {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary-text);
+  padding: 4px 12px;
+  border-radius: 10px;
+  background: rgba(220, 20, 60, 0.1);
+  display: inline-block;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .guides-hero-text h1 {
+    font-size: 36px;
+  }
+
+  .guides-hero-stats {
+    gap: 24px;
+  }
+
+  .stat-number {
+    font-size: 28px;
+  }
+
+  .role-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guides-filter {
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .guides-hero {
+    padding: 60px 16px 40px;
+  }
+
+  .guides-hero-text h1 {
+    font-size: 28px;
+  }
+
+  .guides-hero-text > p {
+    font-size: 16px;
+  }
+
+  .guide-card {
+    padding: 20px;
+  }
+
+  .guide-card-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .agent-guides-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}

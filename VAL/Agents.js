@@ -1,6 +1,7 @@
 // ====== AGENT DATA ======
 // Add all 28 agents here
-const agentsData = {
+// Expose globally for other pages (e.g., Guides)
+window.agentsData = {
   "agent-jett": {
     name: "Jett",
     role: "Duelist",
