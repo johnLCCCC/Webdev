@@ -20,7 +20,7 @@
       <li><a href="Guides.html">Guides</a></li>
       <li><a href="Weapons.html">Weapons</a></li>
       <li><a href="Shop.html">Shop</a></li>
-      <li><a href="About.html">About Us</a></li>
+      <li><a href="About.html" class="active">About Us</a></li>
     </ul>
     <div class="nav-underline" aria-hidden="true"></div>
     <a href="#" id="arrowMenuBtn" class="hamburger-icon" role="button" aria-controls="sliderMenu" aria-expanded="false" aria-label="Open menu">
@@ -44,78 +44,89 @@
   </div>
 
   <main>
-    <!-- Slider container for About Us members -->
-    <section class="about-slider scroll-reveal">
-      <div class="slides">
-        <div class="about-slide section-container1">
-          <div class="about-pic">
-            <img src="aboutt.webp" alt="Studio logo or team photo"/>
-          </div>
-          <div class="details-container about-details-container">
-            <h1 class="title">About Us</h1>
-            <p>We are a group of students who are also gamers, focused on creating a platform for Valorant fans. We provide an Agent Tier List to help players understand the best agents and their roles, and offer official Valorant merchandise like stickers, plushies, and keychains.</p>
-            <p>Our goal is to make Valorant more enjoyable for the community, whether it is improving gameplay or collecting cool items.</p>
-          </div>
+    <!-- About Us Header Section -->
+    <section class="hero-wash scroll-reveal">
+      <div class="hero-wash-inner" style="max-width: 900px; margin: 0 auto; text-align: center;">
+        <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+          <img src="aboutt.webp" alt="Studio logo or team photo" style="max-height: 240px; width: 100%; max-width: 480px; border-radius: 12px; object-fit: cover; box-shadow: 0 8px 32px rgba(0,0,0,0.5); border: 1px solid rgba(220,20,60,0.2);"/>
         </div>
-        <div class="about-slide section-container" >
-          <div class="about-pic">
-            <img src="about us img/claude.webp" alt="John Lourence Cabaluna"/>
+        <h1 class="title gradient-title" style="margin-bottom: 12px;">About Us</h1>
+        <p class="section__text__p2" style="max-width: 700px; margin: 0 auto 16px;">We are a group of students who are also gamers, focused on creating a platform for Valorant fans. We provide an Agent Tier List to help players understand the best agents and their roles, and offer official Valorant merchandise like stickers, plushies, and keychains.</p>
+        <p class="section__text__p2" style="max-width: 700px; margin: 0 auto;">Our goal is to make Valorant more enjoyable for the community, whether it is improving gameplay or collecting cool items.</p>
+      </div>
+    </section>
+
+    <!-- Team Members Section -->
+    <section class="section-container scroll-reveal" style="padding-top: 30px; flex-direction: column; align-items: center;">
+      <h2 class="title" style="font-size: 26px; margin-bottom: 6px; text-align: center; color: var(--text);">Meet The Team</h2>
+      <p class="section__text__p2" style="text-align: center; margin-bottom: 24px;">The talented BSIT students and passionate gamers behind this platform.</p>
+
+      <div class="about-slider" style="width: 100%; max-width: 900px; position: relative;">
+        <div class="slides">
+          <div class="about-slide section-container" style="padding: 20px 0;">
+            <div class="about-pic">
+              <img src="about us img/claude.webp" alt="John Lourence Cabaluna"/>
+            </div>
+            <div class="details-container about-details-container">
+              <h2 class="title">John Lourence Cabaluna</h2>
+              <p> THE GOAT HIMSELF, addicted to Valorant. All hail Claude</p>
+            </div>
           </div>
-          <div class="details-container about-details-container">
-            <h2 class="title">John Lourence Cabaluna</h2>
-            <p> THE GOAT HIMSELF, addicted to Valorant. All hail Claude</p>
+          <div class="about-slide section-container" style="padding: 20px 0;">
+            <div class="about-pic">
+              <img src="about us img/eli.jpg" alt="Eli Ochavo"/>
+            </div>
+            <div class="details-container about-details-container">
+              <h2 class="title">Eli Ochavo</h2>
+              <p> HTML, CSS, JS. Specifically on developing the HTML Structure of Agents, Home, About, JS of the About us. Certain CSS and more.</p>
+            </div>
           </div>
-        </div>
-        <div class="about-slide section-container" >
-          <div class="about-pic">
-            <img src="about us img/eli.jpg" alt="Eli Ochavo"/>
+          <div class="about-slide section-container" style="padding: 20px 0;">
+            <div class="about-pic">
+              <img src="about us img/franck.jpg" alt="Franck Adam Blanco"/>
+            </div>
+            <div class="details-container about-details-container">
+              <h2 class="title">Franck Adam Blanco</h2>
+              <p>  Certain CSS and HTML. </p>
+            </div>
           </div>
-          <div class="details-container about-details-container">
-            <h2 class="title">Eli Ochavo</h2>
-            <p> HTML, CSS, JS. Specifically on developing the HTML Structure of Agents, Home, About, JS of the About us. Certain CSS and more.</p>
+          <div class="about-slide section-container" style="padding: 20px 0;">
+            <div class="about-pic">
+              <img src="about us img/john.jpg" alt="John Paul Cambaya"/>
+            </div>
+            <div class="details-container about-details-container">
+              <h2 class="title">John Paul Cambaya</h2>
+              <p> Certain CSS and HTML. </p>
+            </div>
           </div>
-        </div>
-        <div class="about-slide section-container" >
-          <div class="about-pic">
-            <img src="about us img/franck.jpg" alt="Franck Adam Blanco"/>
+          <div class="about-slide section-container" style="padding: 20px 0;">
+            <div class="about-pic">
+              <img src="about us img/petre.jpg" alt="Peter Natad"/>
+            </div>
+            <div class="details-container about-details-container">
+              <h2 class="title">Peter Natad</h2>
+              <p> Certain CSS and HTML. </p>
+            </div>
           </div>
-          <div class="details-container about-details-container">
-            <h2 class="title">Franck Adam Blanco</h2>
-            <p>  Certain CSS and HTML. </p>
-          </div>
-        </div>
-        <div class="about-slide section-container" >
-          <div class="about-pic">
-            <img src="about us img/john.jpg" alt="John Paul Cambaya"/>
-          </div>
-          <div class="details-container about-details-container">
-            <h2 class="title">John Paul Cambaya</h2>
-            <p> Certain CSS and HTML. </p>
-          </div>
-        </div>
-        <div class="about-slide section-container" >
-          <div class="about-pic">
-            <img src="about us img/petre.jpg" alt="Peter Natad"/>
-          </div>
-          <div class="details-container about-details-container">
-            <h2 class="title">Peter Natad</h2>
-            <p> Certain CSS and HTML. </p>
-          </div>
-        </div>
-        <div class="about-slide section-container" >
-          <div class="about-pic">
-            <img src="about us img/nino.jpg" alt="Nino Katada"/>
-          </div>
-          <div class="details-container about-details-container">
-            <h2 class="title">Nino Katada</h2>
-            <p> Certain CSS and HTML. </p>
+          <div class="about-slide section-container" style="padding: 20px 0;">
+            <div class="about-pic">
+              <img src="about us img/nino.jpg" alt="Nino Katada"/>
+            </div>
+            <div class="details-container about-details-container">
+              <h2 class="title">Nino Katada</h2>
+              <p> Certain CSS and HTML. </p>
+            </div>
           </div>
         </div>
       </div>
-      <button class="slider-nav prev" aria-label="Previous slide">‹</button>
-      <button class="slider-nav next" aria-label="Next slide">›</button>
-      <div class="slider-dots" aria-hidden="false"></div>
     </section>
+
+    <!-- External Carousel Control Bar -->
+    <div class="carousel-controls">
+      <button class="slider-nav prev" aria-label="Previous slide">‹</button>
+      <div class="slider-dots" aria-hidden="false"></div>
+      <button class="slider-nav next" aria-label="Next slide">›</button>
+    </div>
 
   </main>
 

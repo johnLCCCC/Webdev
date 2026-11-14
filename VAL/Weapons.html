@@ -44,19 +44,22 @@
 <script src="nav.js"></script>
 
 <main>
-  <section id="weapon-info" class="section-container scroll-reveal">
-    <h1 class="title">Weapon Arsenal</h1>
-    <p class="section__text__p2">Explore all 19 Valorant weapons (including custom armaments Bandit & Warden), specs, costs, and tactical tips. Click any weapon for deep inspection.</p>
+  <section id="weapon-info" class="hero-wash scroll-reveal">
+    <div class="hero-wash-inner" style="max-width: 1400px; margin: 0 auto; text-align: left; align-items: flex-start;">
+      <h1 class="title gradient-title" style="margin: 0;">Weapon Arsenal</h1>
+      <p class="section__text__p2" style="margin: 0;">Explore all 19 Valorant weapons (including custom armaments Bandit & Warden), specs, costs, and tactical tips. Click any weapon for deep inspection.</p>
 
-    <div class="guides-filter" role="tablist" aria-label="Filter by weapon category" style="margin-bottom: 30px;">
-      <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All Weapons</button>
-      <button class="filter-btn" data-filter="sidearms" role="tab" aria-selected="false">Sidearms</button>
-      <button class="filter-btn" data-filter="smgs" role="tab" aria-selected="false">SMGs</button>
-      <button class="filter-btn" data-filter="shotguns" role="tab" aria-selected="false">Shotguns</button>
-      <button class="filter-btn" data-filter="rifles" role="tab" aria-selected="false">Rifles</button>
-      <button class="filter-btn" data-filter="snipers" role="tab" aria-selected="false">Snipers</button>
-      <button class="filter-btn" data-filter="heavy" role="tab" aria-selected="false">Heavy</button>
+      <div class="guides-filter" role="tablist" aria-label="Filter by weapon category" style="margin-top: 10px; margin-bottom: 0;">
+        <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All Weapons</button>
+        <button class="filter-btn" data-filter="sidearms" role="tab" aria-selected="false">Sidearms</button>
+        <button class="filter-btn" data-filter="smgs" role="tab" aria-selected="false">SMGs</button>
+        <button class="filter-btn" data-filter="shotguns" role="tab" aria-selected="false">Shotguns</button>
+        <button class="filter-btn" data-filter="rifles" role="tab" aria-selected="false">Rifles</button>
+        <button class="filter-btn" data-filter="snipers" role="tab" aria-selected="false">Snipers</button>
+        <button class="filter-btn" data-filter="heavy" role="tab" aria-selected="false">Heavy</button>
+      </div>
     </div>
+  </section>
 
     <div id="weapons-grid" class="cards-grid">
       <!-- Rendered dynamically by weapons.js -->

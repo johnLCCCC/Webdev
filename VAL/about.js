@@ -4,9 +4,9 @@ const aboutSlider = document.querySelector('.about-slider');
 if (aboutSlider) {
   const slidesContainer = aboutSlider.querySelector('.slides');
   const slides = slidesContainer ? Array.from(slidesContainer.children) : [];
-  const prevBtn = aboutSlider.querySelector('.slider-nav.prev');
-  const nextBtn = aboutSlider.querySelector('.slider-nav.next');
-  const dotsContainer = aboutSlider.querySelector('.slider-dots');
+  const prevBtn = document.querySelector('.slider-nav.prev');
+  const nextBtn = document.querySelector('.slider-nav.next');
+  const dotsContainer = document.querySelector('.slider-dots');
   let current = 0;
   let autoplay = true;
   let autoplayInterval = 3000; // 3s
