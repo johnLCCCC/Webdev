@@ -309,209 +309,219 @@ window.agentsData = {
   }
 };
 
-// ====== CREATE MODAL ELEMENT ======
-const modal = document.createElement("div");
-modal.id = "agent-modal";
-modal.innerHTML = `
-  <div class="agent-modal-content">
-    <span class="agent-modal-close">&times;</span>
-    <img class="agent-modal-img" src="" alt="Agent Image">
-    <div class="agent-modal-name"></div>
-    <div class="agent-modal-role"></div>
-    <div class="agent-modal-passive"></div>
-    <ul class="agent-modal-skills"></ul>
-  </div>
-`;
-document.body.appendChild(modal);
+// ====== MODAL & INTERACTION (Only on pages with agent cards) ======
+if (document.querySelector(".card.agent-card.small")) {
+  // ====== CREATE MODAL ELEMENT ======
+  const modal = document.createElement("div");
+  modal.id = "agent-modal";
+  modal.innerHTML = `
+    <div class="agent-modal-content">
+      <span class="agent-modal-close">&times;</span>
+      <img class="agent-modal-img" src="" alt="Agent Image">
+      <div class="agent-modal-name"></div>
+      <div class="agent-modal-role"></div>
+      <div class="agent-modal-passive"></div>
+      <ul class="agent-modal-skills"></ul>
+    </div>
+  `;
+  document.body.appendChild(modal);
 
-// ====== SELECT MODAL ELEMENTS ======
-const modalImg = modal.querySelector(".agent-modal-img");
-const modalName = modal.querySelector(".agent-modal-name");
-const modalRole = modal.querySelector(".agent-modal-role");
-const modalPassive = modal.querySelector(".agent-modal-passive");
-const modalSkills = modal.querySelector(".agent-modal-skills");
-const closeBtn = modal.querySelector(".agent-modal-close");
+  // ====== SELECT MODAL ELEMENTS ======
+  const modalImg = modal.querySelector(".agent-modal-img");
+  const modalName = modal.querySelector(".agent-modal-name");
+  const modalRole = modal.querySelector(".agent-modal-role");
+  const modalPassive = modal.querySelector(".agent-modal-passive");
+  const modalSkills = modal.querySelector(".agent-modal-skills");
+  const closeBtn = modal.querySelector(".agent-modal-close");
 
-// ====== ANIMATION HELPERS ======
+  // ====== ANIMATION TIMERS TRACKING ======
+  let activeTypewriterTimer = null;
+  let activeAnimationTimeouts = [];
 
-// Typewriter effect for passive text
-function typewriterEffect(element, text, speed = 18) {
-  return new Promise(resolve => {
-    element.textContent = "";
-    element.style.width = "0";
-    element.classList.add("typing");
+  function scheduleTimeout(fn, delay) {
+    const id = setTimeout(() => {
+      activeAnimationTimeouts = activeAnimationTimeouts.filter(t => t !== id);
+      fn();
+    }, delay);
+    activeAnimationTimeouts.push(id);
+    return id;
+  }
 
-    let i = 0;
-    const timer = setInterval(() => {
-      if (i < text.length) {
-        element.textContent += text.charAt(i);
-        i++;
-      } else {
-        clearInterval(timer);
-        element.classList.remove("typing");
-        element.style.width = "auto";
-        element.style.borderRight = "none";
-        resolve();
-      }
-    }, speed);
-  });
-}
+  // ====== ANIMATION HELPERS ======
 
-// Staggered skill animation (JS-driven for reliability)
-function animateSkills() {
-  const items = modalSkills.querySelectorAll("li");
-  // Force reflow to ensure initial CSS state is applied before adding .visible
-  void modalSkills.offsetWidth;
+  // Staggered skill animation (JS-driven for reliability)
+  function animateSkills() {
+    const items = modalSkills.querySelectorAll("li");
+    // Force reflow to ensure initial CSS state is applied before adding .visible
+    void modalSkills.offsetWidth;
 
-  // Double requestAnimationFrame to ensure initial state is painted
-  requestAnimationFrame(() => {
+    // Double requestAnimationFrame to ensure initial state is painted
     requestAnimationFrame(() => {
-      items.forEach((li, index) => {
-        // Use setTimeout for stagger
-        setTimeout(() => {
-          li.classList.add("visible");
-        }, index * 80 + 10); // 80ms stagger + 10ms initial delay
+      requestAnimationFrame(() => {
+        items.forEach((li, index) => {
+          // Use setTimeout for stagger
+          scheduleTimeout(() => {
+            li.classList.add("visible");
+          }, index * 80 + 10); // 80ms stagger + 10ms initial delay
+        });
       });
     });
-  });
-}
-
-// Reset all animations
-function resetAnimations() {
-  modalPassive.classList.remove("typing");
-  modalPassive.style.width = "auto";
-  modalPassive.style.borderRight = "none";
-  modalSkills.querySelectorAll("li").forEach(li => {
-    li.classList.remove("visible");
-    li.style.opacity = "";
-    li.style.transform = "";
-    li.style.transition = "";
-  });
-}
-
-// Subtle beep sound (optional, respects reduced motion)
-function playTypeSound() {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  try {
-    // @ts-ignore - webkitAudioContext exists on Safari/iOS
-    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContextClass) return;
-    const ctx = new AudioContextClass();
-    const oscillator = ctx.createOscillator();
-    const gainNode = ctx.createGain();
-    oscillator.connect(gainNode);
-    gainNode.connect(ctx.destination);
-    oscillator.frequency.value = 1200;
-    oscillator.type = "sine";
-    gainNode.gain.value = 0.02;
-    oscillator.start();
-    gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
-    oscillator.stop(ctx.currentTime + 0.05);
-  } catch (e) {
-    // Audio not supported or blocked - silently ignore
   }
-}
 
-// Play sound for each character typed
-function typewriterWithSound(element, text, speed = 18) {
-  return new Promise(resolve => {
-    element.textContent = "";
-    element.style.width = "0";
-    element.classList.add("typing");
-
-    let i = 0;
-    const timer = setInterval(() => {
-      if (i < text.length) {
-        element.textContent += text.charAt(i);
-        if (text.charAt(i) !== " ") playTypeSound();
-        i++;
-      } else {
-        clearInterval(timer);
-        element.classList.remove("typing");
-        element.classList.add("typing-done");
-        element.style.width = "auto";
-        element.style.borderRight = "none";
-        resolve();
-      }
-    }, speed);
-  });
-}
-
-// ====== OPEN MODAL FUNCTION ======
-function openModal(agentId) {
-  const agent = agentsData[agentId];
-  if (!agent) return;
-
-  // Reset any previous animations
-  resetAnimations();
-
-  modalImg.src = agent.img;
-  modalImg.alt = agent.name + " portrait";
-  modalName.textContent = agent.name;
-  modalRole.textContent = "Role: " + agent.role;
-
-  // Set passive text but don't animate yet
-  const passiveText = "Passive: " + agent.passive;
-  modalPassive.textContent = passiveText;
-
-  // Build skills list
-  modalSkills.innerHTML = "";
-  agent.skills.forEach(skill => {
-    const li = document.createElement("li");
-    li.textContent = skill.trim();
-    modalSkills.appendChild(li);
-  });
-
-  modal.style.display = "flex";
-
-  // Trigger animations after a brief delay (allows modal to render)
-  requestAnimationFrame(() => {
-    setTimeout(() => {
-      // 1. Typewriter for passive
-      typewriterWithSound(modalPassive, passiveText, 15).then(() => {
-        // 2. Staggered skills after passive completes
-        // Give a small extra delay to ensure passive animation is fully done
-        setTimeout(() => {
-          requestAnimationFrame(() => {
-            animateSkills();
-          });
-        }, 200);
-      });
-    }, 150);
-  });
-}
-
-
-// ====== CLOSE MODAL FUNCTION ======
-function closeModal() {
-  modal.style.display = "none";
-  resetAnimations();
-}
-
-// ====== CLICK EVENT ON AGENTS ======
-document.querySelectorAll(".card.agent-card.small").forEach(card => {
-  card.addEventListener("click", () => {
-    openModal(card.dataset.agentId);
-  });
-});
-
-// Keyboard accessibility for agent cards
-document.querySelectorAll(".card.agent-card.small").forEach(card => {
-  card.addEventListener("keydown", (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      openModal(card.dataset.agentId);
+  // Reset all animations and cancel any running intervals/timeouts
+  function resetAnimations() {
+    // 1. Cancel active typewriter interval
+    if (activeTypewriterTimer) {
+      clearInterval(activeTypewriterTimer);
+      activeTypewriterTimer = null;
     }
+
+    // 2. Clear all scheduled animation timeouts
+    activeAnimationTimeouts.forEach(id => clearTimeout(id));
+    activeAnimationTimeouts = [];
+
+    // 3. Reset element classes and styling
+    modalPassive.classList.remove("typing", "typing-done");
+    modalPassive.style.width = "auto";
+    modalPassive.style.borderRight = "none";
+    modalSkills.querySelectorAll("li").forEach(li => {
+      li.classList.remove("visible");
+      li.style.opacity = "";
+      li.style.transform = "";
+      li.style.transition = "";
+    });
+  }
+
+  // Subtle beep sound (optional, respects reduced motion)
+  function playTypeSound() {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    try {
+      // @ts-ignore - webkitAudioContext exists on Safari/iOS
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+      const ctx = new AudioContextClass();
+      const oscillator = ctx.createOscillator();
+      const gainNode = ctx.createGain();
+      oscillator.connect(gainNode);
+      gainNode.connect(ctx.destination);
+      oscillator.frequency.value = 1200;
+      oscillator.type = "sine";
+      gainNode.gain.value = 0.02;
+      oscillator.start();
+      gainNode.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+      oscillator.stop(ctx.currentTime + 0.05);
+    } catch (e) {
+      // Audio not supported or blocked - silently ignore
+    }
+  }
+
+  // Play sound for each character typed with single active timer
+  function typewriterWithSound(element, text, speed = 18) {
+    return new Promise(resolve => {
+      // Clear any running typewriter timer first
+      if (activeTypewriterTimer) {
+        clearInterval(activeTypewriterTimer);
+        activeTypewriterTimer = null;
+      }
+
+      element.textContent = "";
+      element.style.width = "0";
+      element.classList.remove("typing-done");
+      element.classList.add("typing");
+
+      let i = 0;
+      activeTypewriterTimer = setInterval(() => {
+        if (i < text.length) {
+          element.textContent += text.charAt(i);
+          if (text.charAt(i) !== " ") playTypeSound();
+          i++;
+        } else {
+          clearInterval(activeTypewriterTimer);
+          activeTypewriterTimer = null;
+          element.classList.remove("typing");
+          element.classList.add("typing-done");
+          element.style.width = "auto";
+          element.style.borderRight = "none";
+          resolve();
+        }
+      }, speed);
+    });
+  }
+
+  // ====== OPEN MODAL FUNCTION ======
+  function openModal(agentId) {
+    const agent = agentsData[agentId];
+    if (!agent) return;
+
+    // Reset any previous animations & kill any running typewriter timer
+    resetAnimations();
+
+    modalImg.src = agent.img;
+    modalImg.alt = agent.name + " portrait";
+    modalName.textContent = agent.name;
+    modalRole.textContent = "Role: " + agent.role;
+
+    const passiveText = "Passive: " + agent.passive;
+    modalPassive.textContent = "";
+
+    // Build skills list
+    modalSkills.innerHTML = "";
+    agent.skills.forEach(skill => {
+      const li = document.createElement("li");
+      li.textContent = skill.trim();
+      modalSkills.appendChild(li);
+    });
+
+    modal.style.display = "flex";
+
+    // Trigger animations after a brief delay (allows modal to render)
+    requestAnimationFrame(() => {
+      scheduleTimeout(() => {
+        // 1. Typewriter for passive
+        typewriterWithSound(modalPassive, passiveText, 15).then(() => {
+          // 2. Staggered skills after passive completes
+          scheduleTimeout(() => {
+            requestAnimationFrame(() => {
+              animateSkills();
+            });
+          }, 200);
+        });
+      }, 150);
+    });
+  }
+
+  // ====== CLOSE MODAL FUNCTION ======
+  function closeModal() {
+    modal.style.display = "none";
+    resetAnimations();
+    modalPassive.textContent = "";
+  }
+
+  // ====== CLICK EVENT ON AGENTS ======
+  document.querySelectorAll(".card.agent-card.small").forEach(card => {
+    card.addEventListener("click", () => {
+      openModal(card.dataset.agentId);
+    });
   });
-});
 
-// ====== CLOSE EVENTS ======
-closeBtn.addEventListener("click", closeModal);
-modal.addEventListener("click", e => {
-  if (e.target === modal) closeModal();
-});
+  // Keyboard accessibility for agent cards
+  document.querySelectorAll(".card.agent-card.small").forEach(card => {
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openModal(card.dataset.agentId);
+      }
+    });
+  });
 
-// Close modal with Escape key
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeModal();
-});
+  // ====== CLOSE EVENTS ======
+  closeBtn.addEventListener("click", closeModal);
+  modal.addEventListener("click", e => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Close modal with Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+  });
+}

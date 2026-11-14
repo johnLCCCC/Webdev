@@ -66,7 +66,52 @@ function typewriterWithSound(element, text, speed = 18) {
   });
 }
 
+// Wrapper that stores the timer reference for cancellation
+// timerRef is an object with a `current` property (e.g., { current: passiveTypewriterTimer })
+function startTypewriterWithSound(element, text, speed, timerRef) {
+  return new Promise(resolve => {
+    element.textContent = "";
+    element.style.width = "0";
+    element.classList.add("typing");
+
+    let i = 0;
+    const timer = setInterval(() => {
+      if (i < text.length) {
+        element.textContent += text.charAt(i);
+        if (text.charAt(i) !== " ") playTypeSound();
+        i++;
+      } else {
+        clearInterval(timer);
+        element.classList.remove("typing");
+        element.classList.add("typing-done");
+        element.style.width = "auto";
+        element.style.borderRight = "none";
+        // Clear the reference when done
+        if (timerRef && timerRef.current === timer) {
+          timerRef.current = null;
+        }
+        resolve();
+      }
+    }, speed);
+
+    // Store the timer reference
+    if (timerRef) {
+      timerRef.current = timer;
+    }
+  });
+}
+
 function resetTypewriterAnimations() {
+  // Clear any running typewriter timers
+  if (passiveTypewriterTimer.current) {
+    clearInterval(passiveTypewriterTimer.current);
+    passiveTypewriterTimer.current = null;
+  }
+  if (playstyleTypewriterTimer.current) {
+    clearInterval(playstyleTypewriterTimer.current);
+    playstyleTypewriterTimer.current = null;
+  }
+
   const passiveEl = document.getElementById("agent-passive");
   const playstyleEl = document.getElementById("agent-playstyle");
   [passiveEl, playstyleEl].forEach(el => {
@@ -1129,6 +1174,12 @@ let roleModalClose = null;
 let agentModalClose = null;
 let featuredModalClose = null;
 
+// ====== TYPEWRITER TIMER TRACKING ======
+// Store active typewriter interval IDs so we can cancel them when switching agents
+// Using objects with `current` property so they can be passed by reference
+const passiveTypewriterTimer = { current: null };
+const playstyleTypewriterTimer = { current: null };
+
 // ====== RENDER AGENT GUIDE CARDS ======
 let currentFilter = "all";
 let previousFilter = "all";
@@ -1486,14 +1537,14 @@ function openAgentGuideModal(agentId) {
     `<div class="difficulty-bar${i < difficulty ? " filled" : ""}"></div>`
   ).join("");
 
-  // Reset any previous typewriter animations
+  // Reset any previous typewriter animations (clears timers and resets UI)
   resetTypewriterAnimations();
 
   // Passive with typewriter
   const passiveEl = document.getElementById("agent-passive");
   if (passiveText) {
     passiveEl.textContent = "";
-    typewriterWithSound(passiveEl, passiveText, 15);
+    startTypewriterWithSound(passiveEl, passiveText, 15, passiveTypewriterTimer);
   } else {
     passiveEl.textContent = "No passive data available";
   }
@@ -1501,7 +1552,7 @@ function openAgentGuideModal(agentId) {
   // Playstyle with typewriter
   const playstyleEl = document.getElementById("agent-playstyle");
   playstyleEl.textContent = "";
-  typewriterWithSound(playstyleEl, agent.playstyle, 15);
+  startTypewriterWithSound(playstyleEl, agent.playstyle, 15, playstyleTypewriterTimer);
 
   // Abilities
   const abilitiesContainer = document.getElementById("agent-abilities");
@@ -1531,6 +1582,16 @@ function openAgentGuideModal(agentId) {
 }
 
 function closeAgentGuideModal() {
+  // Clear any running typewriter timers
+  if (passiveTypewriterTimer.current) {
+    clearInterval(passiveTypewriterTimer.current);
+    passiveTypewriterTimer.current = null;
+  }
+  if (playstyleTypewriterTimer.current) {
+    clearInterval(playstyleTypewriterTimer.current);
+    playstyleTypewriterTimer.current = null;
+  }
+
   agentGuideModal.classList.remove("open");
   agentGuideModal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
