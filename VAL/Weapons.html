@@ -5,16 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Weapons — Valorant</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="merch.css">
+  <link rel="stylesheet" href="guides.css">
+  <link rel="stylesheet" href="guides-modal.css">
   <link rel="icon" type="image/png" href="dum.png">
 </head>
 <body>
 
 <nav class="top-nav" role="navigation" aria-label="Main navigation">
-  <a href="index.html" class="logo" aria-label="Valorant Home">VALORANT</a>
+  <a href="index.html" class="logo" aria-label="Valorant Home">VALO?</a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="Meta.html">Meta</a></li>
+    <li><a href="Guides.html">Guides</a></li>
+    <li><a href="Weapons.html" class="active">Weapons</a></li>
     <li><a href="Shop.html">Shop</a></li>
     <li><a href="About.html">About Us</a></li>
   </ul>
@@ -32,6 +35,7 @@
     <a role="menuitem" href="index.html">Home</a>
     <a role="menuitem" href="Meta.html">Meta</a>
     <a role="menuitem" href="Guides.html">Guides</a>
+    <a role="menuitem" href="Weapons.html">Weapons</a>
     <a role="menuitem" href="Shop.html">Shop</a>
     <a role="menuitem" href="About.html">About Us</a>
   </div>
@@ -41,57 +45,194 @@
 
 <main>
   <section id="weapon-info" class="section-container scroll-reveal">
-    <h1 class="title">Weapon Info</h1>
-    <p class="section__text__p2">Quick stats and links to weapon pages.</p>
-    <h2 class="section-subtitle">All Weapons</h2>
-    <div class="cards-grid">
-      <article class="card weapon-card">
-        <div class="card-body">
-          <h3>Vandal</h3>
-          <p>High damage, versatile rifle. Reliable at any range.</p>
-          <p><strong>Cost:</strong> ₱2,900 &nbsp;|&nbsp; <strong>Fire rate:</strong> 9.75/s</p>
-        </div>
-      </article>
-      <article class="card weapon-card">
-        <div class="card-body">
-          <h3>Phantom</h3>
-          <p>Suppressed automatic rifle with invisible tracers.</p>
-          <p><strong>Cost:</strong> ₱2,900 &nbsp;|&nbsp; <strong>Fire rate:</strong> 11/s</p>
-        </div>
-      </article>
-      <article class="card weapon-card">
-        <div class="card-body">
-          <h3>Sheriff</h3>
-          <p>Powerful sidearm with one-shot headshot potential.</p>
-          <p><strong>Cost:</strong> ₱800 &nbsp;|&nbsp; <strong>Damage:</strong> High (HS)</p>
-        </div>
-      </article>
-      <article class="card weapon-card">
-        <div class="card-body">
-          <h3>Spectre</h3>
-          <p>Fast-firing SMG great for eco and pistol rounds.</p>
-          <p><strong>Cost:</strong> ₱1,600 &nbsp;|&nbsp; <strong>Fire rate:</strong> 13.33/s</p>
-        </div>
-      </article>
-      <article class="card weapon-card">
-        <div class="card-body">
-          <h3>Oden</h3>
-          <p>Heavy LMG with armor penetration. Slow but devastating.</p>
-          <p><strong>Cost:</strong> ₱3,200 &nbsp;|&nbsp; <strong>Mag:</strong> 25</p>
-        </div>
-      </article>
-      <article class="card weapon-card">
-        <div class="card-body">
-          <h3>Guardian</h3>
-          <p> Semi-automatic sniper rifle — high accuracy, one tap kills.</p>
-          <p><strong>Cost:</strong> ₱2,250 &nbsp;|&nbsp; <strong>Fire mode:</strong> Semi</p>
-        </div>
-      </article>
+    <h1 class="title">Weapon Arsenal</h1>
+    <p class="section__text__p2">Explore all 19 Valorant weapons (including custom armaments Bandit & Warden), specs, costs, and tactical tips. Click any weapon for deep inspection.</p>
+
+    <div class="guides-filter" role="tablist" aria-label="Filter by weapon category" style="margin-bottom: 30px;">
+      <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">All Weapons</button>
+      <button class="filter-btn" data-filter="sidearms" role="tab" aria-selected="false">Sidearms</button>
+      <button class="filter-btn" data-filter="smgs" role="tab" aria-selected="false">SMGs</button>
+      <button class="filter-btn" data-filter="shotguns" role="tab" aria-selected="false">Shotguns</button>
+      <button class="filter-btn" data-filter="rifles" role="tab" aria-selected="false">Rifles</button>
+      <button class="filter-btn" data-filter="snipers" role="tab" aria-selected="false">Snipers</button>
+      <button class="filter-btn" data-filter="heavy" role="tab" aria-selected="false">Heavy</button>
+    </div>
+
+    <div id="weapons-grid" class="cards-grid">
+      <!-- Rendered dynamically by weapons.js -->
     </div>
   </section>
+</main>
 
-  </main>
+<!-- Weapon Detail Modal -->
+<div id="weapon-detail-modal" class="guide-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="weapon-modal-title">
+  <div class="guide-modal-content" style="padding: 32px;">
+    <button class="guide-modal-close" id="close-weapon-modal" aria-label="Close modal">&times;</button>
+    <div style="display: flex; flex-direction: column; gap: 16px;">
+      <div style="text-align: center; background: rgba(0,0,0,0.2); padding: 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.04);">
+        <img id="weapon-modal-img" src="" alt="" style="max-height: 100px; max-width: 100%; object-fit: contain;">
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <h2 id="weapon-modal-title" style="margin: 0; font-size: 24px; color: #fff;">Weapon Name</h2>
+          <span id="weapon-modal-category" style="font-size: 13px; color: var(--primary-text); text-transform: uppercase; font-weight: 600;">Category</span>
+        </div>
+        <div style="text-align: right;">
+          <div id="weapon-modal-cost" style="font-size: 18px; font-weight: 700; color: #fff;">🪙 0</div>
+        </div>
+      </div>
+      <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 4px 0;">
+      <div>
+        <h3 style="font-size: 14px; text-transform: uppercase; color: var(--muted); margin: 0 0 6px 0;">Overview</h3>
+        <p id="weapon-modal-desc" style="margin: 0; font-size: 15px; color: var(--text);"></p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; background: rgba(255,255,255,0.02); padding: 16px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.04);">
+        <div>
+          <span style="font-size: 12px; color: var(--muted); display: block;">Fire Rate</span>
+          <strong id="weapon-modal-firerate" style="font-size: 15px; color: #fff;">-</strong>
+        </div>
+        <div>
+          <span style="font-size: 12px; color: var(--muted); display: block;">Magazine</span>
+          <strong id="weapon-modal-mag" style="font-size: 15px; color: #fff;">-</strong>
+        </div>
+        <div>
+          <span style="font-size: 12px; color: var(--muted); display: block;">Wall Penetration</span>
+          <strong id="weapon-modal-pen" style="font-size: 15px; color: #fff;">-</strong>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size: 14px; text-transform: uppercase; color: var(--muted); margin: 0 0 6px 0;">Damage Stats</h3>
+        <p id="weapon-modal-damage" style="margin: 0; font-size: 14px; color: var(--text); font-family: monospace; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px;"></p>
+      </div>
+      <div>
+        <h3 style="font-size: 14px; text-transform: uppercase; color: var(--muted); margin: 0 0 6px 0;">Tactical Tips</h3>
+        <p id="weapon-modal-tips" style="margin: 0; font-size: 14px; color: var(--primary-text);"></p>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <p class="copyright">&copy; 2026 VAL — BSIT Students Project</p>
+    <p class="disclaimer">
+      This is a student project for educational purposes only.
+      <br>
+      <strong>Disclaimer:</strong> VALORANT is a trademark of Riot Games, Inc.
+      This website is not affiliated with, endorsed by, sponsored by, or approved by Riot Games, Inc.
+      All game content, characters, images, and trademarks are property of their respective owners.
+      Used under Riot Games' <a href="https://www.riotgames.com/en/legal" target="_blank" rel="noopener">Legal Jibber Jabber</a> policy.
+    </p>
+  </div>
+</footer>
+
+<script src="weapons.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.getElementById('weapons-grid');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const modal = document.getElementById('weapon-detail-modal');
+    const closeModalBtn = document.getElementById('close-weapon-modal');
+
+    function openWeaponModal(w) {
+      document.getElementById('weapon-modal-img').src = w.img;
+      document.getElementById('weapon-modal-img').alt = `${w.name} render`;
+      document.getElementById('weapon-modal-title').textContent = w.name;
+      document.getElementById('weapon-modal-category').textContent = w.category;
+      document.getElementById('weapon-modal-cost').textContent = `🪙 ${w.cost}`;
+      document.getElementById('weapon-modal-desc').textContent = w.desc;
+      document.getElementById('weapon-modal-firerate').textContent = w.fireRate;
+      document.getElementById('weapon-modal-mag').textContent = w.magazine;
+      document.getElementById('weapon-modal-pen').textContent = w.wallPenetration;
+      document.getElementById('weapon-modal-damage').textContent = w.damage;
+      document.getElementById('weapon-modal-tips').textContent = w.tips;
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeWeaponModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    closeModalBtn.addEventListener('click', closeWeaponModal);
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeWeaponModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeWeaponModal();
+    });
+
+    function renderWeapons(filter = 'all') {
+      grid.innerHTML = '';
+      const weapons = window.weaponsData || {};
+      Object.entries(weapons).forEach(([id, w]) => {
+        if (filter !== 'all' && w.category !== filter) return;
+        const card = document.createElement('article');
+        card.className = 'card weapon-card';
+        card.tabIndex = 0;
+        card.style.background = 'var(--card-bg)';
+        card.style.padding = '20px';
+        card.style.borderRadius = '12px';
+        card.style.border = '1px solid rgba(255,255,255,0.05)';
+        card.style.display = 'flex';
+        card.style.flexDirection = 'column';
+        card.style.gap = '8px';
+        card.style.cursor = 'pointer';
+        card.style.transition = 'transform 200ms ease, border-color 200ms ease';
+
+        card.addEventListener('mouseenter', () => {
+          card.style.transform = 'translateY(-2px)';
+          card.style.borderColor = 'rgba(220,20,60,0.3)';
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'translateY(0)';
+          card.style.borderColor = 'rgba(255,255,255,0.05)';
+        });
+
+        card.addEventListener('click', () => openWeaponModal(w));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openWeaponModal(w);
+          }
+        });
+
+        card.innerHTML = `
+          <div style="text-align: center; height: 70px; display: flex; align-items: center; justify-content: center; margin-bottom: 4px;">
+            <img src="${w.img}" alt="${w.name}" loading="lazy" style="max-height: 64px; max-width: 100%; object-fit: contain;">
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="margin: 0; font-size: 18px; color: #fff;">${w.name}</h3>
+            <span style="font-size: 12px; padding: 2px 8px; border-radius: 4px; background: rgba(220,20,60,0.15); color: var(--primary-text); text-transform: uppercase;">${w.category}</span>
+          </div>
+          <p style="margin: 4px 0; font-size: 14px; color: var(--muted);">${w.desc}</p>
+          <p style="margin: 4px 0; font-size: 13px; color: var(--text);"><strong>Cost:</strong> 🪙 ${w.cost} &nbsp;|&nbsp; <strong>Fire Rate:</strong> ${w.fireRate}</p>
+          <p style="margin: 0; font-size: 12px; color: var(--primary-text);"><strong>Tip:</strong> ${w.tips}</p>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        renderWeapons(btn.dataset.filter);
+      });
+    });
+
+    renderWeapons('all');
+  });
+</script>
 <script src="scroll-anim.js"></script>
 </body>
 </html>
